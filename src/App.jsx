@@ -1,29 +1,23 @@
 import { useState } from 'react';
 import './App.css';
-import { Box } from './components/box';
-import { Canvas } from '@react-three/fiber';
-import Sidebar from './components/sidebar';
+// import Sidebar from './components/sidebar';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SquishCube from './pages/SquishCube';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import NoPage from './pages/NoPage';
 
-function App() {
+export default function App() {
     return (
-        <div id="outer-container" className="App">
-            <Sidebar />
-            <Canvas
-                id="page-wrap"
-                orthographic
-                camera={{ zoom: 50, position: [0, 0, 100] }}
-                gl={{
-                    alpha: false,
-                    antialias: true,
-                    backgroundColor: 'skyblue'
-                }}
-            >
-                <Box position={[0, 0, -5]} />
-                <Box position={[0, 1, -5]} />
-                <ambientLight />
-            </Canvas>
-        </div>
+        <BrowserRouter basename="/snoezelen">
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="squishCube" element={<SquishCube />} />
+                    <Route path="*" element={<NoPage />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 }
-
-export default App;
