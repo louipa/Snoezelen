@@ -1,11 +1,16 @@
 import React from 'react';
-import { slide as Menu } from 'react-burger-menu';
+import { scaleRotate as Menu } from 'react-burger-menu';
+import './sidebar.css';
 
-const CustomBurgerIcon = () => <img src="assets/react.svg" />;
+const CustomBurgerIcon = () => <img src="./react.svg" />;
 
 const Sidebar = () => {
     return (
-        <Menu customBurgerIcon={<CustomBurgerIcon />}>
+        <Menu
+            pageWrapId={'page-wrap'}
+            outerContainerId={'outer-container'}
+            customBurgerIcon={<CustomBurgerIcon />}
+        >
             <a id="home" className="menu-item" href="/">
                 Home
             </a>
