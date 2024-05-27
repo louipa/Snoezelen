@@ -1,31 +1,12 @@
-image: node:latest
-
-stages:
-  - build
-  - deploy
-
-cache:
-  paths:
-    - node_modules/
-
+# The Docker image that will be used to build your app
+image: node:lts
+# Functions that should be executed before the build script is run
 before_script:
   - npm install
-
-build:
-  stage: build
+pages:
   script:
     - npm run build
   artifacts:
     paths:
-      - dist/
-
-pages:
-  stage: deploy
-  script:
-    - mkdir public
-    - cp -r dist/* public
-  artifacts:
-    paths:
-      - public
-  only:
-    - main
+      - dist
+  publish: dist
