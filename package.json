@@ -10,10 +10,7 @@
         "preview": "vite preview",
         "clean": "gts clean",
         "compile": "tsc",
-        "fix": "gts fix",
-        "prepare": "npm run compile",
-        "pretest": "npm run compile",
-        "posttest": "npm run lint"
+        "fix": "gts fix"
     },
     "dependencies": {
         "@react-three/drei": "^9.105.6",
