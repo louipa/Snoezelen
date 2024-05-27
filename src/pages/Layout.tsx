@@ -1,13 +1,18 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { slide as Menu } from 'react-burger-menu';
+import { scaleRotate as Menu } from 'react-burger-menu';
+import './sidebar.css';
 
-const CustomBurgerIcon = () => <img src="assets/react.svg" />;
+const CustomBurgerIcon = () => <img src="./react.svg" />;
 
 const Layout = () => {
     return (
-        <>
-            <Menu customBurgerIcon={<CustomBurgerIcon />}>
+        <div id="outer-container" className="size100p">
+            <Menu
+                pageWrapId={'page-wrap'}
+                outerContainerId={'outer-container'}
+                customBurgerIcon={<CustomBurgerIcon />}
+            >
                 <Link className="menu-item" to="/">
                     Home
                 </Link>
@@ -15,9 +20,10 @@ const Layout = () => {
                     Squish Cube
                 </Link>
             </Menu>
-
-            <Outlet />
-        </>
+            <div id="page-wrap" className="size100p">
+                <Outlet />
+            </div>
+        </div>
     );
 };
 
