@@ -6,5 +6,5 @@
         "esModuleInterop": true,
         "lib": ["DOM"]
     },
-    "include": ["src/**/*.ts", "test/**/*.ts"]
+    "include": ["src/"]
 }

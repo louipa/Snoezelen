@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 build
+
+# charts
+*.env
+*burndown.html
+*burnup.html
