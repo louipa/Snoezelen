@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { scaleRotate as Menu } from 'react-burger-menu';
+import { bubble as Menu } from 'react-burger-menu';
 import './sidebar.css';
 
 const CustomBurgerIcon = () => <img src="./react.svg" />;
