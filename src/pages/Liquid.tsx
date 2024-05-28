@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import Box from '../components/box';
-import { Canvas, useThree } from '@react-three/fiber';
-import { lavaAnimation } from './test.js';
+import { useThree } from '@react-three/fiber';
+import { lavaAnimation } from './LavaAnimation.js';
 
 import * as THREE from 'three'; // Import the THREE object from the three package
 
