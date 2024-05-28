@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Worm from '../components/Worm';
+import Worm from '../../components/Worm';
 import { Canvas, useThree } from '@react-three/fiber';
 
 import * as THREE from 'three'; // Import the THREE object from the three package

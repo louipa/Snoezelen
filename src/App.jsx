@@ -3,7 +3,7 @@ import './App.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SquishCube from './pages/SquishCube';
-import NeuralSignal from './pages/NeuralSignal';
+import NeuralSignal from './pages/NeuralSignal/NeuralSignal';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import NoPage from './pages/NoPage';
