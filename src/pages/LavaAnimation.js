@@ -318,7 +318,7 @@ export function lavaAnimation() {
         const metaballs = new Metaballs(
             screenConfig.width,
             screenConfig.height,
-            20,
+            80,
             '#ff0000',
             '#0040ff',
             canvasContext

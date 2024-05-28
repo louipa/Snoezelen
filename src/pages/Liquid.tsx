@@ -1,21 +1,25 @@
 import React, { useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import { lavaAnimation } from './LavaAnimation.js';
+import { useOutletContext } from 'react-router-dom';
 
-import * as THREE from 'three'; // Import the THREE object from the three package
+import * as THREE from 'three';
 
 const SetBackgroundColor = ({ color }: { color: string }) => {
     const { scene } = useThree();
 
     useEffect(() => {
-        scene.background = new THREE.Color(color); // Use the THREE object to set the background color
+        scene.background = new THREE.Color(color);
     }, [color, scene]);
 
     return null;
 };
 
 export default function Liquid() {
+    const [handlechange]: [any] = useOutletContext();
+
     useEffect(() => {
+        handlechange('truc');
         lavaAnimation().run();
     }, []);
     return <canvas id="lamp-anim" className="lamp-anim size100p"></canvas>;
