@@ -1,4 +1,6 @@
 export function lavaAnimation() {
+    let stop = true;
+
     class Vector {
         constructor(x, y) {
             this.x = x;
@@ -304,6 +306,7 @@ export function lavaAnimation() {
         const canvasContext = screenConfig.context;
 
         const animationFrame = () => {
+            if (stop) return;
             requestAnimationFrame(animationFrame);
             canvasContext.clearRect(
                 0,
@@ -318,11 +321,14 @@ export function lavaAnimation() {
         const metaballs = new Metaballs(
             screenConfig.width,
             screenConfig.height,
-            80,
+            10,
             '#ff0000',
             '#0040ff',
             canvasContext
         );
-        return { run: animationFrame };
+        return {
+            run: animationFrame,
+            changeState: () => (stop = !stop)
+        };
     }
 }

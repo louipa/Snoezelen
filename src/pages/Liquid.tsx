@@ -19,8 +19,15 @@ export default function Liquid() {
     const [handlechange]: [any] = useOutletContext();
 
     useEffect(() => {
-        handlechange('truc');
-        lavaAnimation().run();
+        let lavaAnim = lavaAnimation();
+        handlechange(<div>tryc</div>);
+        lavaAnim.changeState();
+        lavaAnim.run();
+
+        return () => {
+            lavaAnim.changeState();
+        };
     }, []);
+
     return <canvas id="lamp-anim" className="lamp-anim size100p"></canvas>;
 }

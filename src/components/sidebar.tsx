@@ -5,7 +5,7 @@ import { Outlet, Link } from 'react-router-dom';
 
 const CustomBurgerIcon = () => <img src="./react.svg" />;
 
-export default function Sidebar() {
+export default function Sidebar(props) {
     return (
         <Menu
             pageWrapId={'page-wrap'}
@@ -23,6 +23,7 @@ export default function Sidebar() {
             <Link className="menu-item" to="/liquid">
                 Liquid
             </Link>
+            {props.test}
         </Menu>
     );
 }
