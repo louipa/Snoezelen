@@ -15,9 +15,9 @@ function lerp(a: number, b: number, t: number): number {
 }
 
 const Fractales: React.FC<IFractales> = () => {
-    const radius = 3;
+    const [radius, setRadius] = useState(4);
     const nbPoints = 100000;
-    const sides = 8;
+    const [sides, setSides] = useState(3);
     const [interpolation, setInterpolation] = useState(0.7);
     const points = useMemo(() => {
         const vertices = [];
@@ -61,11 +61,21 @@ const Fractales: React.FC<IFractales> = () => {
                 min="0"
                 max="1"
                 step="0.01"
+                value={interpolation}
                 onChange={(e) =>
                     setInterpolation(Number(e.currentTarget.value))
                 }
             />
-            <Canvas camera={{}}>
+            <input
+                type="range"
+                name="rad"
+                id="rad"
+                min="3"
+                max="15"
+                value={sides}
+                onChange={(e) => setSides(Number(e.currentTarget.value))}
+            />
+            <Canvas camera={{}} style={{ backgroundColor: 'black' }}>
                 <Polygon radius={radius} sides={sides} />
                 <Points positions={points}>
                     <pointsMaterial color="red" size={0.02} />
