@@ -5,3 +5,43 @@
     left: 36px;
     top: 36px;
 }
+
+.bm-menu {
+    background-color: #222222;
+}
+
+.bm-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+    padding-top: 20px;
+}
+
+.menu-item {
+    font-size: 1.25em;
+    color: #e8e8e8;
+    text-decoration: none;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.menu-item:hover {
+    color: #ffffff;
+}
+
+.item-separator {
+    border: 1px solid #444444;
+    margin-left: 10px;
+}
+
+.bm-morph-shape {
+    fill: #222222;
+}
+
+.bm-cross {
+    background-color: #e8e8e8;
+}
+
+.bm-cross-button:hover .bm-cross {
+    background-color: #ffffff;
+}

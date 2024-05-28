@@ -1,9 +1,10 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
+import './home.css';
 
 const Home = () => {
     return (
-        <div>
+        <div className="homeContainer size100p">
             <h1>Home</h1>
             <ul>
                 <li>

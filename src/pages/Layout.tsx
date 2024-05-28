@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { bubble as Menu } from 'react-burger-menu';
+import { elastic as Menu } from 'react-burger-menu';
 import './sidebar.css';
 
 const CustomBurgerIcon = () => <img src="./react.svg" />;
@@ -16,6 +16,7 @@ const Layout = () => {
                 <Link className="menu-item" to="/">
                     Home
                 </Link>
+                <span className="item-separator" />
                 <Link className="menu-item" to="/squishCube">
                     Squish Cube
                 </Link>
