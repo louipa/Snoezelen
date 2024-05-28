@@ -20,6 +20,10 @@ const Layout = () => {
                 <Link className="menu-item" to="/squishCube">
                     Squish Cube
                 </Link>
+                <span className="item-separator" />
+                <Link className="menu-item" to="/liquid">
+                    Liquid
+                </Link>
             </Menu>
             <div id="page-wrap" className="size100p">
                 <Outlet />

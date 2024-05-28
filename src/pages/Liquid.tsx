@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Box from '../components/box';
 import { Canvas, useThree } from '@react-three/fiber';
+import './test.js';
 
 import * as THREE from 'three'; // Import the THREE object from the three package
 
@@ -14,13 +15,13 @@ const SetBackgroundColor = ({ color }: { color: string }) => {
     return null;
 };
 
-export default function SquishCube() {
+export default function Liquid() {
     return (
-        <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
-            <SetBackgroundColor color="#222222" />
-            <Box position={[0, 0, -5]} />
-            <Box position={[0, 1, -5]} />
-            <ambientLight />
-        </Canvas>
+        <canvas
+            id="lamp-anim"
+            className="lamp-anim"
+            width="1500px"
+            height="700px"
+        ></canvas>
     );
 }
