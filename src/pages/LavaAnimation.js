@@ -1,5 +1,6 @@
 export function lavaAnimation() {
     let stop = true;
+    let metaballs;
 
     class Vector {
         constructor(x, y) {
@@ -31,11 +32,12 @@ export function lavaAnimation() {
                 0.2 * environment.height +
                     Math.random() * environment.height * 0.6
             );
-            this.size =
+            this.basesize =
                 environment.minDimension / 30 +
                 (Math.random() * (maxSizeVariation - sizeVariation) +
                     sizeVariation) *
                     (environment.minDimension / 30);
+            this.size = this.basesize;
             this.width = environment.width;
             this.height = environment.height;
         }
@@ -58,6 +60,10 @@ export function lavaAnimation() {
             }
 
             this.position = this.position.add(this.velocity);
+        }
+
+        changeSize(factor) {
+            this.size = factor * this.basesize;
         }
     }
 
@@ -252,6 +258,15 @@ export function lavaAnimation() {
                 }
             }
         }
+
+        recalculateForces() {
+            for (let x = 0; x <= this.sx; x++) {
+                for (let y = 0; y <= this.sy; y++) {
+                    const index = x + y * (this.sx + 2);
+                    this.computeForce(x, y, index);
+                }
+            }
+        }
     }
 
     const screen = {
@@ -305,6 +320,15 @@ export function lavaAnimation() {
         const screenConfig = screen.init('lamp-anim', null, true);
         const canvasContext = screenConfig.context;
 
+        metaballs = new Metaballs(
+            screenConfig.width,
+            screenConfig.height,
+            10,
+            '#ff0000',
+            '#0040ff',
+            canvasContext
+        );
+
         const animationFrame = () => {
             if (stop) return;
             requestAnimationFrame(animationFrame);
@@ -317,18 +341,30 @@ export function lavaAnimation() {
             metaballs.renderMetaballs();
         };
 
+        const setBallNumber = (ballNumber) => {
+            metaballs = new Metaballs(
+                screenConfig.width,
+                screenConfig.height,
+                ballNumber,
+                '#ff0000',
+                '#0040ff',
+                canvasContext
+            );
+        };
+
+        const changeBallSize = (factor) => {
+            for (let ball of metaballs.balls) {
+                ball.changeSize(factor);
+            }
+            metaballs.recalculateForces();
+        };
+
         screenConfig.resize();
-        const metaballs = new Metaballs(
-            screenConfig.width,
-            screenConfig.height,
-            10,
-            '#ff0000',
-            '#0040ff',
-            canvasContext
-        );
         return {
             run: animationFrame,
-            changeState: () => (stop = !stop)
+            changeState: () => (stop = !stop),
+            setBallNumber: setBallNumber,
+            changeBallSize: changeBallSize
         };
     }
 }

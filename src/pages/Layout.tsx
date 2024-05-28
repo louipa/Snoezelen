@@ -1,17 +1,22 @@
-import React, { ReactElement } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/sidebar';
+import SidebarContext from '../components/sidebarContext';
 
 const Layout = () => {
-    const handlechange = (message: string) => {};
+    const [elementSidebar, setElementSidebar] = useState<React.ReactNode>(
+        <></>
+    );
 
     return (
-        <div id="outer-container" className="size100p">
-            <Sidebar test={handlechange('truc')} />
-            <div id="page-wrap" className="size100p">
-                <Outlet context={[handlechange]} />
+        <SidebarContext.Provider value={{ elementSidebar, setElementSidebar }}>
+            <div id="outer-container" className="size100p">
+                <Sidebar />
+                <div id="page-wrap" className="size100p">
+                    <Outlet />
+                </div>
             </div>
-        </div>
+        </SidebarContext.Provider>
     );
 };
 

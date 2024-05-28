@@ -1,33 +1,46 @@
-import React, { useEffect } from 'react';
-import { useThree } from '@react-three/fiber';
+import React, { useContext, useEffect, useState } from 'react';
 import { lavaAnimation } from './LavaAnimation.js';
-import { useOutletContext } from 'react-router-dom';
+import SidebarContext from '../components/sidebarContext.js';
 
-import * as THREE from 'three';
+let lavaAnim: lavaAnimation;
 
-const SetBackgroundColor = ({ color }: { color: string }) => {
-    const { scene } = useThree();
+const setBallNumber = (event) => {
+    if (lavaAnim && lavaAnim.setBallNumber) {
+        lavaAnim.setBallNumber(event.target.value);
+    }
+};
 
-    useEffect(() => {
-        scene.background = new THREE.Color(color);
-    }, [color, scene]);
-
-    return null;
+const setBallSize = (event) => {
+    if (lavaAnim && lavaAnim.setBallNumber) {
+        lavaAnim.changeBallSize(event.target.value);
+    }
 };
 
 export default function Liquid() {
-    const [handlechange]: [any] = useOutletContext();
+    const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
-        let lavaAnim = lavaAnimation();
-        handlechange(<div>tryc</div>);
+        lavaAnim = lavaAnimation();
+        setElementSidebar(
+            <>
+                <input type="range" min="0" max="11" onChange={setBallNumber} />
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    onChange={setBallSize}
+                />
+            </>
+        );
         lavaAnim.changeState();
         lavaAnim.run();
 
         return () => {
             lavaAnim.changeState();
+            setElementSidebar(<></>);
         };
-    }, []);
+    }, [setElementSidebar]);
 
     return <canvas id="lamp-anim" className="lamp-anim size100p"></canvas>;
 }
