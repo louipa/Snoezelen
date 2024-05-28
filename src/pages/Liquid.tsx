@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Box from '../components/box';
 import { Canvas, useThree } from '@react-three/fiber';
-import './test.js';
+import { lavaAnimation } from './test.js';
 
 import * as THREE from 'three'; // Import the THREE object from the three package
 
@@ -16,12 +16,8 @@ const SetBackgroundColor = ({ color }: { color: string }) => {
 };
 
 export default function Liquid() {
-    return (
-        <canvas
-            id="lamp-anim"
-            className="lamp-anim"
-            width="1500px"
-            height="700px"
-        ></canvas>
-    );
+    useEffect(() => {
+        lavaAnimation().run();
+    }, []);
+    return <canvas id="lamp-anim" className="lamp-anim size100p"></canvas>;
 }
