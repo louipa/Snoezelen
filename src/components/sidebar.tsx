@@ -25,6 +25,14 @@ export default function Sidebar() {
             <Link className="menu-item" to="/liquid">
                 Liquid
             </Link>
+            <span className="item-separator" />
+            <Link className="menu-item" to="/fractales">
+                Fractals
+            </Link>
+            <span className="item-separator" />
+            <Link className="menu-item" to="/particles">
+                Particles
+            </Link>
             {elementSidebar}
         </Menu>
     );

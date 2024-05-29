@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Liquid from './pages/Liquid';
 import SquishCube from './pages/SquishCube';
-import NeuralSignal from './pages/NeuralSignal/NeuralSignal';
+import Particles from './pages/Particles/Particles';
 import Fractales from './pages/Fractales';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
@@ -17,7 +17,7 @@ export default function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="squishCube" element={<SquishCube />} />
-                    <Route path="neuralSignal" element={<NeuralSignal />} />
+                    <Route path="particles" element={<Particles />} />
                     <Route path="fractales" element={<Fractales />} />
                     <Route path="liquid" element={<Liquid />} />
                     <Route path="*" element={<NoPage />} />

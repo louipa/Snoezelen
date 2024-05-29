@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { randomFieldVectors } from './perlin.js';
 import * as THREE from 'three'; // Import the THREE object from the three package
 import { Line, Points } from '@react-three/drei';
+import SidebarContext from '../../components/sidebarContext.js';
+import ParamSlider from '../../components/parameters/paramSlider.js';
 
 function randomInteger(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -36,7 +38,7 @@ interface IParticles {
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-const Particles: React.FC<IParticles> = ({
+const Generator: React.FC<IParticles> = ({
     canvasLength,
     speed,
     nbParticles,
@@ -124,17 +126,38 @@ const Particles: React.FC<IParticles> = ({
     );
 };
 
-export default function NeuralSignal() {
+export default function Particles() {
     const canvasLength = 100;
-    const offset = canvasLength / 2;
-    const nbParticles = 20000;
-    const speed = 1;
+    const [nbParticles, setNbParticles] = useState(20000);
+    const [speed, setSpeed] = useState(1);
 
+    const { setElementSidebar } = useContext(SidebarContext);
+
+    useEffect(() => {
+        setElementSidebar(
+            <div className="parameter-container">
+                <h3>Personalize your experience</h3>
+                <ParamSlider
+                    name="Ball number"
+                    min="1"
+                    max="30"
+                    step="1"
+                    defaultValue="10"
+                    onChange={(e) => {
+                        setSpeed(Number(e.currentTarget.value));
+                    }}
+                />
+            </div>
+        );
+        return () => {
+            setElementSidebar(<></>);
+        };
+    }, [setElementSidebar]);
     return (
         <div style={{ position: 'relative', height: '100%' }}>
             <Canvas orthographic camera={{ zoom: 5 }}>
                 <SetBackgroundColor color="#222222" />
-                <Particles
+                <Generator
                     nbParticles={nbParticles}
                     canvasLength={canvasLength}
                     speed={speed}
