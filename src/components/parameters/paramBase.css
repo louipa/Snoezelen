@@ -1,0 +1,86 @@
+.parambase {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    padding: 4px;
+    margin: 2px;
+}
+
+.parambase p {
+    font-size: 0.9em;
+    color: #e8e8e8;
+    margin-left: 2px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.parameter-container > h3 {
+    font-size: 1em;
+    color: #e8e8e8;
+}
+
+.slider {
+    appearance: none;
+    height: 15px;
+    width: 100%;
+    background: #444444;
+    outline: none;
+    border-radius: 50px;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    scale: 1.5;
+}
+
+.sliderValues {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.colorPicker {
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+}
+
+.hexPreview {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #444444;
+    border-radius: 15px 0 0 15px;
+    border: none;
+    padding: 10px;
+}
+
+.colorPreview {
+    width: 70%;
+    height: 100%;
+    border-radius: 0 15px 15px 0;
+    border: none;
+    padding: 10px;
+}
+
+.w-color-colorful {
+    align-self: center;
+}
+
+.w-color-colorful:first-child {
+    margin-top: 15px;
+}

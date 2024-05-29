@@ -17,6 +17,10 @@
     padding-top: 20px;
 }
 
+.bm-item-list > .parameter-container {
+    margin-top: auto;
+}
+
 .menu-item {
     font-size: 1.25em;
     color: #e8e8e8;
@@ -31,7 +35,7 @@
 
 .item-separator {
     border: 1px solid #444444;
-    margin-left: 10px;
+    margin: 0 10px;
 }
 
 .bm-morph-shape {
@@ -44,4 +48,15 @@
 
 .bm-cross-button:hover .bm-cross {
     background-color: #ffffff;
+}
+
+.parameter-container {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid #444444;
+    border-radius: 15px;
 }
