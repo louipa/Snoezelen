@@ -9,7 +9,7 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
-        './node_modules/gts/'
+        'plugin:@typescript-eslint/recommended'
     ],
     ignorePatterns: ['dist', '.eslintrc.cjs'],
     parserOptions: {
