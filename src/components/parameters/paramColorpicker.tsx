@@ -3,7 +3,7 @@ import ParamBase from './paramBase';
 import Colorful from '@uiw/react-color-colorful';
 import { hsvaToHex, hexToHsva } from '@uiw/color-convert';
 
-export default function ParamColorpicker(props: {
+export default function ParamColorPicker(props: {
     name: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }) {
@@ -18,8 +18,10 @@ export default function ParamColorpicker(props: {
         const isValid = /^#?[0-9A-Fa-f]*$/.test(value);
         if (isValid) {
             setColor(value.startsWith('#') ? value : '#' + value);
-            if (value.length === 7 || value.length === 4)
+            if (value.length === 7 || value.length === 4) {
                 setHsva(hexToHsva(value));
+                props.onChange;
+            }
         }
     };
 
