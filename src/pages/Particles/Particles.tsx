@@ -127,13 +127,13 @@ const Generator: React.FC<IParticles> = ({
 };
 
 export default function Particles() {
-    const canvasLength = 100;
-    const [nbParticles, setNbParticles] = useState(20000);
+    const canvasLength = 150;
+    const nbParticles = 20000;
     const [speed, setSpeed] = useState(1);
     const [blur, setBlur] = useState(false);
-    const [animationChange, setAnimationChange] = useState(false);
+    const [animationChange, setAnimationChange] = useState(true);
     const [animationSpeed, setAnimationSpeed] = useState(10);
-    const [randomSpawn, setRandomSpawn] = useState(0);
+    const [randomSpawn, setRandomSpawn] = useState(0.5);
     const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
@@ -142,6 +142,11 @@ export default function Particles() {
                 <h3>Personalize your experience</h3>
 
                 <ParamCheckBox
+                    name="Blur"
+                    defaultValue={blur}
+                    onChange={(e) => setBlur(Boolean(e.currentTarget.checked))}
+                />
+                <ParamCheckBox
                     name="Change Animation"
                     defaultValue={animationChange}
                     onChange={(e) =>
@@ -149,7 +154,7 @@ export default function Particles() {
                     }
                 />
                 <ParamSlider
-                    name="Animation Speed"
+                    name="Animation Frame Time"
                     min="1"
                     max="20"
                     step="0.1"
@@ -189,7 +194,10 @@ export default function Particles() {
             <Canvas
                 orthographic
                 camera={{ zoom: 5 }}
-                style={{ filter: `blur(${blur ? 1 : 0}px)` }}
+                style={{
+                    filter: `blur(${blur ? 1 : 0}px)`,
+                    background: 'black'
+                }}
             >
                 <SetBackgroundColor color="#222222" />
                 <Generator
