@@ -2,22 +2,23 @@ import React, { useContext, useEffect, useState } from 'react';
 import { lavaAnimation } from './LavaAnimation.js';
 import SidebarContext from '../components/sidebarContext.js';
 import ParamSlider from '../components/parameters/paramSlider.js';
+import ParamColorpicker from '../components/parameters/paramColorpicker.js';
 
 let lavaAnim: lavaAnimation;
 
-const setBallNumber = (event) => {
+const setBallNumber = (event: { target: { value: any } }) => {
     if (lavaAnim && lavaAnim.setBallNumber) {
         lavaAnim.setBallNumber(event.target.value);
     }
 };
 
-const setBallSize = (event) => {
+const setBallSize = (event: { target: { value: any } }) => {
     if (lavaAnim && lavaAnim.setBallSize) {
         lavaAnim.setBallSize(event.target.value);
     }
 };
 
-const setBallSpeed = (event) => {
+const setBallSpeed = (event: { target: { value: any } }) => {
     if (lavaAnim && lavaAnim.setBallSpeed) {
         lavaAnim.setBallSpeed(event.target.value);
     }
@@ -55,6 +56,7 @@ export default function Liquid() {
                     defaultValue="0.25"
                     onChange={setBallSpeed}
                 />
+                <ParamColorpicker name="Ball color" />
             </div>
         );
         lavaAnim.changeState();

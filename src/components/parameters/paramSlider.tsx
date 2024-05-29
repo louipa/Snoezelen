@@ -1,7 +1,14 @@
 import React from 'react';
 import ParamBase from './paramBase';
 
-export default function ParamSlider(props) {
+export default function ParamSlider(props: {
+    name: string;
+    min: string;
+    max: string;
+    step: string;
+    defaultValue: string;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}) {
     return (
         <ParamBase name={props.name}>
             <input
