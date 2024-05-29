@@ -4,7 +4,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 
 import * as THREE from 'three'; // Import the THREE object from the three package
 
-const SetBackgroundColor = ({ color }) => {
+const SetBackgroundColor = ({ color }: { color: string }) => {
     const { scene } = useThree();
 
     useEffect(() => {

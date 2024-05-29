@@ -1,29 +1,22 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { bubble as Menu } from 'react-burger-menu';
-import './sidebar.css';
-
-const CustomBurgerIcon = () => <img src="./react.svg" />;
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../components/sidebar';
+import SidebarContext from '../components/sidebarContext';
 
 const Layout = () => {
+    const [elementSidebar, setElementSidebar] = useState<React.ReactNode>(
+        <></>
+    );
+
     return (
-        <div id="outer-container" className="size100p">
-            <Menu
-                pageWrapId={'page-wrap'}
-                outerContainerId={'outer-container'}
-                customBurgerIcon={<CustomBurgerIcon />}
-            >
-                <Link className="menu-item" to="/">
-                    Home
-                </Link>
-                <Link className="menu-item" to="/squishCube">
-                    Squish Cube
-                </Link>
-            </Menu>
-            <div id="page-wrap" className="size100p">
-                <Outlet />
+        <SidebarContext.Provider value={{ elementSidebar, setElementSidebar }}>
+            <div id="outer-container" className="size100p">
+                <Sidebar />
+                <div id="page-wrap" className="size100p">
+                    <Outlet />
+                </div>
             </div>
-        </div>
+        </SidebarContext.Provider>
     );
 };
 
