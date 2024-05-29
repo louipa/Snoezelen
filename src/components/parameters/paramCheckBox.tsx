@@ -8,13 +8,15 @@ export default function ParamCheckBox(props: {
 }) {
     return (
         <ParamBase name={props.name}>
-            <input
-                type="checkbox"
-                id="switch"
-                defaultChecked={props.defaultValue}
-                onChange={props.onChange}
-            />
-            <label htmlFor="switch"></label>
+            <label className="toggle">
+                <input
+                    className="toggle-checkbox"
+                    type="checkbox"
+                    defaultChecked={props.defaultValue}
+                    onChange={props.onChange}
+                />
+                <div className="toggle-switch"></div>
+            </label>
         </ParamBase>
     );
 }
