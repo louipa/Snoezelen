@@ -3,6 +3,7 @@ import { lavaAnimation } from './LavaAnimation.js';
 import SidebarContext from '../components/sidebarContext.js';
 import ParamSlider from '../components/parameters/paramSlider.js';
 import ParamCheckBox from '../components/parameters/paramCheckBox.js';
+import ParamColorPicker from '../components/parameters/paramColorPicker.js';
 
 let lavaAnim: lavaAnimation;
 
@@ -56,7 +57,6 @@ export default function Lavalamp() {
                     defaultValue="0.25"
                     onChange={setBallSpeed}
                 />
-                <ParamCheckBox name="test" defaultValue={true} />
             </div>
         );
         lavaAnim.changeState();
