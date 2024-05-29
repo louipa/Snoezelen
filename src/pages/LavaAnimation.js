@@ -2,6 +2,7 @@ export function lavaAnimation() {
     let stop = true;
     let metaballs;
     let sizeFactor = 1;
+    let speedFactor = 0.25;
 
     class Vector {
         constructor(x, y) {
@@ -15,17 +16,21 @@ export function lavaAnimation() {
         add(vector) {
             return new Vector(this.x + vector.x, this.y + vector.y);
         }
+
+        multiply(factor) {
+            return new Vector(this.x * factor, this.y * factor);
+        }
     }
 
     class Ball {
         constructor(environment) {
-            const speedFactor = 0.2 + Math.random() * 0.25;
+            const speed = Math.random();
             const sizeVariation = 0.1;
             const maxSizeVariation = 1.5;
 
             this.velocity = new Vector(
-                (Math.random() > 0.5 ? 1 : -1) * speedFactor,
-                (Math.random() > 0.5 ? 1 : -1) * (0.2 + Math.random())
+                (Math.random() > 0.5 ? 1 : -1) * speed,
+                (Math.random() > 0.5 ? 1 : -1) * Math.random() * speed
             );
             this.position = new Vector(
                 0.2 * environment.width +
@@ -60,7 +65,9 @@ export function lavaAnimation() {
                 this.position.y = this.size;
             }
 
-            this.position = this.position.add(this.velocity);
+            this.position = this.position.add(
+                this.velocity.multiply(speedFactor)
+            );
         }
 
         changeSize() {
@@ -369,12 +376,18 @@ export function lavaAnimation() {
             metaballs.recalculateForces();
         };
 
+        const setBallSpeed = (factor) => {
+            if (factor == speedFactor) return;
+            speedFactor = factor;
+        };
+
         screenConfig.resize();
         return {
             run: animationFrame,
             changeState: () => (stop = !stop),
             setBallNumber: setBallNumber,
-            setBallSize: setBallSize
+            setBallSize: setBallSize,
+            setBallSpeed: setBallSpeed
         };
     }
 }

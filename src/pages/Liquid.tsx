@@ -11,8 +11,14 @@ const setBallNumber = (event) => {
 };
 
 const setBallSize = (event) => {
-    if (lavaAnim && lavaAnim.setBallNumber) {
+    if (lavaAnim && lavaAnim.setBallSize) {
         lavaAnim.setBallSize(event.target.value);
+    }
+};
+
+const setBallSpeed = (event) => {
+    if (lavaAnim && lavaAnim.setBallSpeed) {
+        lavaAnim.setBallSpeed(event.target.value);
     }
 };
 
@@ -45,6 +51,18 @@ export default function Liquid() {
                         step="0.1"
                         defaultValue="1"
                         onChange={setBallSize}
+                    />
+                </div>
+                <div>
+                    <p>Ball speed</p>
+                    <input
+                        className="slider"
+                        type="range"
+                        min="0.1"
+                        max="2"
+                        step="0.05"
+                        defaultValue="0.25"
+                        onChange={setBallSpeed}
                     />
                 </div>
             </div>
