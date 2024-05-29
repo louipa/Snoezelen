@@ -22,23 +22,32 @@ export default function Liquid() {
     useEffect(() => {
         lavaAnim = lavaAnimation();
         setElementSidebar(
-            <>
-                <input
-                    type="range"
-                    min="1"
-                    max="30"
-                    defaultValue="10"
-                    onChange={setBallNumber}
-                />
-                <input
-                    type="range"
-                    min="0.1"
-                    max="3"
-                    step="0.1"
-                    defaultValue="1"
-                    onChange={setBallSize}
-                />
-            </>
+            <div className="parameter-container">
+                <h3>Personalize your experience</h3>
+                <div>
+                    <p>Ball number</p>
+                    <input
+                        className="slider"
+                        type="range"
+                        min="1"
+                        max="30"
+                        defaultValue="10"
+                        onChange={setBallNumber}
+                    />
+                </div>
+                <div>
+                    <p>Ball size</p>
+                    <input
+                        className="slider"
+                        type="range"
+                        min="0.1"
+                        max="3"
+                        step="0.1"
+                        defaultValue="1"
+                        onChange={setBallSize}
+                    />
+                </div>
+            </div>
         );
         lavaAnim.changeState();
         lavaAnim.run();
