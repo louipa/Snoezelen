@@ -5,7 +5,7 @@ import { hsvaToHex, hexToHsva } from '@uiw/color-convert';
 
 export default function ParamColorPicker(props: {
     name: string;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onChange?: any;
 }) {
     const [openpicker, setOpenpicker] = useState('none');
 
@@ -20,9 +20,17 @@ export default function ParamColorPicker(props: {
             setColor(value.startsWith('#') ? value : '#' + value);
             if (value.length === 7 || value.length === 4) {
                 setHsva(hexToHsva(value));
-                if (props.onChange) props.onChange(value);
+                console.log('color changed');
+                props.onChange(color);
             }
         }
+    };
+
+    const handleColorChange = (newColor: any) => {
+        console.log('color changed');
+        setHsva(newColor.hsva);
+        setColor(hsvaToHex(newColor.hsva));
+        props.onChange(color);
     };
 
     const handleClickColor = () => {
@@ -48,9 +56,8 @@ export default function ParamColorPicker(props: {
             </div>
             <Colorful
                 color={hsva}
-                onChange={(color) => {
-                    setHsva(color.hsva);
-                    setColor(hsvaToHex(color.hsva));
+                onChange={(newColor) => {
+                    handleColorChange(newColor);
                 }}
                 style={{ display: openpicker }}
             />
