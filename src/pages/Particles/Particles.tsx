@@ -5,6 +5,7 @@ import * as THREE from 'three'; // Import the THREE object from the three packag
 import { Line, Points } from '@react-three/drei';
 import SidebarContext from '../../components/sidebarContext.js';
 import ParamSlider from '../../components/parameters/paramSlider.js';
+import ParamCheckBox from '../../components/parameters/paramCheckBox.js';
 
 function randomInteger(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -69,7 +70,6 @@ const Generator: React.FC<IParticles> = ({
 
             if (interpolationProgress >= 0.99) {
                 transitionSteps.current = 0;
-                console.log('change');
                 const newVectors = randomFieldVectors(canvasLength);
                 previousVectors.current = vectors.current;
                 vectors.current = newVectors;
@@ -130,37 +130,75 @@ export default function Particles() {
     const canvasLength = 100;
     const [nbParticles, setNbParticles] = useState(20000);
     const [speed, setSpeed] = useState(1);
-
+    const [blur, setBlur] = useState(false);
+    const [animationChange, setAnimationChange] = useState(false);
+    const [animationSpeed, setAnimationSpeed] = useState(10);
+    const [randomSpawn, setRandomSpawn] = useState(0);
     const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
         setElementSidebar(
             <div className="parameter-container">
                 <h3>Personalize your experience</h3>
+
+                <ParamCheckBox
+                    name="Change Animation"
+                    defaultValue={animationChange}
+                    onChange={(e) =>
+                        setAnimationChange(Boolean(e.currentTarget.checked))
+                    }
+                />
                 <ParamSlider
-                    name="Ball number"
+                    name="Animation Speed"
                     min="1"
-                    max="30"
-                    step="1"
+                    max="20"
+                    step="0.1"
+                    defaultValue={String(animationSpeed)}
+                    onChange={(e) =>
+                        setAnimationSpeed(Number(e.currentTarget.value))
+                    }
+                />
+                <ParamSlider
+                    name="Particles Speed"
+                    min="0"
+                    max="5"
+                    step="0.05"
                     defaultValue="10"
                     onChange={(e) => {
                         setSpeed(Number(e.currentTarget.value));
                     }}
+                />
+                <ParamSlider
+                    name="Chance of spawning randomly"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    defaultValue={String(randomSpawn)}
+                    onChange={(e) =>
+                        setRandomSpawn(Number(e.currentTarget.value))
+                    }
                 />
             </div>
         );
         return () => {
             setElementSidebar(<></>);
         };
-    }, [setElementSidebar]);
+    }, [setElementSidebar, blur, animationChange, animationSpeed, randomSpawn]);
     return (
         <div style={{ position: 'relative', height: '100%' }}>
-            <Canvas orthographic camera={{ zoom: 5 }}>
+            <Canvas
+                orthographic
+                camera={{ zoom: 5 }}
+                style={{ filter: `blur(${blur ? 1 : 0}px)` }}
+            >
                 <SetBackgroundColor color="#222222" />
                 <Generator
                     nbParticles={nbParticles}
                     canvasLength={canvasLength}
                     speed={speed}
+                    changeVectors={animationChange}
+                    maxSteps={animationSpeed}
+                    randomBorderPlacement={randomSpawn}
                 />
 
                 <ambientLight />
