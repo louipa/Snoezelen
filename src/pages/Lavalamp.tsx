@@ -24,7 +24,7 @@ const setBallSpeed = (event: { target: { value: any } }) => {
     }
 };
 
-export default function Liquid() {
+export default function Lavalamp() {
     const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
@@ -56,7 +56,6 @@ export default function Liquid() {
                     defaultValue="0.25"
                     onChange={setBallSpeed}
                 />
-                <ParamColorpicker name="Ball color" />
             </div>
         );
         lavaAnim.changeState();
