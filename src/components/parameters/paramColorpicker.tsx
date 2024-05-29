@@ -20,7 +20,7 @@ export default function ParamColorPicker(props: {
             setColor(value.startsWith('#') ? value : '#' + value);
             if (value.length === 7 || value.length === 4) {
                 setHsva(hexToHsva(value));
-                props.onChange;
+                if (props.onChange) props.onChange(value);
             }
         }
     };

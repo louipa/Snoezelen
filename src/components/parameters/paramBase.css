@@ -91,40 +91,52 @@ input[type='checkbox'] {
     visibility: hidden;
 }
 
-label {
+.toggle {
     cursor: pointer;
-    text-indent: -9999px;
-    width: 70px;
-    height: 30px;
-    background: #444444;
-    display: block;
-    border-radius: 100px;
-    position: relative;
+    display: inline-block;
 }
 
-label:after {
+.toggle-switch {
+    display: inline-block;
+    background: #444444;
+    border-radius: 16px;
+    width: 70px;
+    height: 30px;
+    position: relative;
+    vertical-align: middle;
+    transition: background 0.25s;
+}
+.toggle-switch:before,
+.toggle-switch:after {
     content: '';
+}
+.toggle-switch:before {
+    display: block;
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
     position: absolute;
     top: 3px;
     left: 3px;
-    width: 24px;
-    height: 24px;
-    background: #e8e8e8;
-    border-radius: 90px;
-    transition: 0.3s;
+    transition: left 0.25s;
 }
 
-input:checked + label {
+.toggle-checkbox:checked + .toggle-switch {
     background: #e8e8e8;
-    transition: all 0.3s;
 }
-
-input:checked + label:after {
+.toggle-checkbox:checked + .toggle-switch:before {
+    left: 42px;
     background: #444444;
-    left: calc(100% - 5px);
-    transform: translateX(-100%);
 }
 
-label:active:after {
-    width: 45px;
+.toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.toggle-label {
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
 }
