@@ -52,7 +52,7 @@ export function randomFieldVectors(size) {
         vectors.push([]);
         for (let j = 0; j < size; j++) {
             const v = perlin.get(i / size, j / size);
-            const angle = (v + 1) * Math.PI;
+            const angle = v * Math.PI * 2;
             const x = Math.cos(angle);
             const y = Math.sin(angle);
             vectors[i].push(new THREE.Vector3(x, y, 0));
