@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { lavaAnimation } from './LavaAnimation.js';
 import SidebarContext from '../components/sidebarContext.js';
+import ParamSlider from '../components/parameters/paramSlider.js';
 
 let lavaAnim: lavaAnimation;
 
@@ -30,41 +31,30 @@ export default function Liquid() {
         setElementSidebar(
             <div className="parameter-container">
                 <h3>Personalize your experience</h3>
-                <div>
-                    <p>Ball number</p>
-                    <input
-                        className="slider"
-                        type="range"
-                        min="1"
-                        max="30"
-                        defaultValue="10"
-                        onChange={setBallNumber}
-                    />
-                </div>
-                <div>
-                    <p>Ball size</p>
-                    <input
-                        className="slider"
-                        type="range"
-                        min="0.1"
-                        max="3"
-                        step="0.1"
-                        defaultValue="1"
-                        onChange={setBallSize}
-                    />
-                </div>
-                <div>
-                    <p>Ball speed</p>
-                    <input
-                        className="slider"
-                        type="range"
-                        min="0.1"
-                        max="2"
-                        step="0.05"
-                        defaultValue="0.25"
-                        onChange={setBallSpeed}
-                    />
-                </div>
+                <ParamSlider
+                    name="Ball number"
+                    min="1"
+                    max="30"
+                    step="1"
+                    defaultValue="10"
+                    onChange={setBallNumber}
+                />
+                <ParamSlider
+                    name="Ball size"
+                    min="0.1"
+                    max="3"
+                    step="0.1"
+                    defaultValue="1"
+                    onChange={setBallSize}
+                />
+                <ParamSlider
+                    name="Ball speed"
+                    min="0.1"
+                    max="2"
+                    step="0.05"
+                    defaultValue="0.25"
+                    onChange={setBallSpeed}
+                />
             </div>
         );
         lavaAnim.changeState();
