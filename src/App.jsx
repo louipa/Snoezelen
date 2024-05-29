@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Liquid from './pages/Liquid';
+import Lavalamp from './pages/Lavalamp';
 import SquishCube from './pages/SquishCube';
 import Particles from './pages/Particles/Particles';
 import Fractales from './pages/Fractales';
@@ -19,7 +19,7 @@ export default function App() {
                     <Route path="squishCube" element={<SquishCube />} />
                     <Route path="particles" element={<Particles />} />
                     <Route path="fractales" element={<Fractales />} />
-                    <Route path="liquid" element={<Liquid />} />
+                    <Route path="lavalamp" element={<Lavalamp />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>

@@ -11,7 +11,7 @@ const Home = () => {
                     <Link to="/squishCube">Squish Cube</Link>
                 </li>
                 <li>
-                    <Link to="/liquid">Liquid</Link>
+                    <Link to="/lavalamp">Lava Lamp</Link>
                 </li>
                 <li>
                     <Link to="/contact">Contact (404)</Link>

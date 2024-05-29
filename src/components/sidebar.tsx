@@ -22,8 +22,8 @@ export default function Sidebar() {
                 Squish Cube
             </Link>
             <span className="item-separator" />
-            <Link className="menu-item" to="/liquid">
-                Liquid
+            <Link className="menu-item" to="/lavalamp">
+                Lava Lamp
             </Link>
             <span className="item-separator" />
             <Link className="menu-item" to="/fractales">

@@ -36,7 +36,7 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #ffffff;
+    background: #e8e8e8;
     cursor: pointer;
 }
 
@@ -83,4 +83,48 @@
 
 .w-color-colorful:first-child {
     margin-top: 15px;
+}
+
+input[type='checkbox'] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 70px;
+    height: 30px;
+    background: #444444;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: #e8e8e8;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked + label {
+    background: #e8e8e8;
+    transition: all 0.3s;
+}
+
+input:checked + label:after {
+    background: #444444;
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 45px;
 }
