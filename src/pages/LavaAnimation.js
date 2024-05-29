@@ -1,6 +1,7 @@
 export function lavaAnimation() {
     let stop = true;
     let metaballs;
+    let sizeFactor = 1;
 
     class Vector {
         constructor(x, y) {
@@ -37,7 +38,7 @@ export function lavaAnimation() {
                 (Math.random() * (maxSizeVariation - sizeVariation) +
                     sizeVariation) *
                     (environment.minDimension / 30);
-            this.size = this.basesize;
+            this.size = this.basesize * sizeFactor;
             this.width = environment.width;
             this.height = environment.height;
         }
@@ -62,8 +63,8 @@ export function lavaAnimation() {
             this.position = this.position.add(this.velocity);
         }
 
-        changeSize(factor) {
-            this.size = factor * this.basesize;
+        changeSize() {
+            this.size = sizeFactor * this.basesize;
         }
     }
 
@@ -342,19 +343,28 @@ export function lavaAnimation() {
         };
 
         const setBallNumber = (ballNumber) => {
-            metaballs = new Metaballs(
-                screenConfig.width,
-                screenConfig.height,
-                ballNumber,
-                '#ff0000',
-                '#0040ff',
-                canvasContext
-            );
+            const currentBallNumber = metaballs.balls.length;
+            console.log(currentBallNumber, ballNumber);
+            if (ballNumber == currentBallNumber) return;
+
+            const difnumber = ballNumber - currentBallNumber;
+
+            for (let i = 0; i < Math.abs(difnumber); i++) {
+                if (difnumber > 0) {
+                    metaballs.balls.push(new Ball(metaballs));
+                } else {
+                    metaballs.balls.pop();
+                }
+            }
+
+            metaballs.recalculateForces();
         };
 
-        const changeBallSize = (factor) => {
+        const setBallSize = (factor) => {
+            if (factor == sizeFactor) return;
+            sizeFactor = factor;
             for (let ball of metaballs.balls) {
-                ball.changeSize(factor);
+                ball.changeSize();
             }
             metaballs.recalculateForces();
         };
@@ -364,7 +374,7 @@ export function lavaAnimation() {
             run: animationFrame,
             changeState: () => (stop = !stop),
             setBallNumber: setBallNumber,
-            changeBallSize: changeBallSize
+            setBallSize: setBallSize
         };
     }
 }

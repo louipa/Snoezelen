@@ -12,7 +12,7 @@ const setBallNumber = (event) => {
 
 const setBallSize = (event) => {
     if (lavaAnim && lavaAnim.setBallNumber) {
-        lavaAnim.changeBallSize(event.target.value);
+        lavaAnim.setBallSize(event.target.value);
     }
 };
 
@@ -23,12 +23,19 @@ export default function Liquid() {
         lavaAnim = lavaAnimation();
         setElementSidebar(
             <>
-                <input type="range" min="0" max="11" onChange={setBallNumber} />
                 <input
                     type="range"
-                    min="0"
-                    max="1"
+                    min="1"
+                    max="30"
+                    defaultValue="10"
+                    onChange={setBallNumber}
+                />
+                <input
+                    type="range"
+                    min="0.1"
+                    max="3"
                     step="0.1"
+                    defaultValue="1"
                     onChange={setBallSize}
                 />
             </>
