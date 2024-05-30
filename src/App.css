@@ -1,7 +1,7 @@
 #root {
-  width: 100%;
-  height: 100vh;
-  text-align: center;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
 }
 
 .logo {
@@ -38,4 +38,9 @@
 
 .read-the-docs {
     color: #888;
+}
+
+.App {
+    height: 100%;
+    width: 100%;
 }

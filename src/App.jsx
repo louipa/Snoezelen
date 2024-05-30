@@ -1,16 +1,28 @@
-import { useState } from "react";
-import "./App.css";
-import { Box } from "./components/box";
-import { Canvas } from "@react-three/fiber";
+import { useState } from 'react';
+import './App.css';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Lavalamp from './pages/Lavalamp';
+import SquishCube from './pages/SquishCube';
+import Particles from './pages/Particles/Particles';
+import Fractales from './pages/Fractales';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import NoPage from './pages/NoPage';
 
-function App() {
-  return (
-    <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
-      <Box position={[0, 0, -5]} />
-      <Box position={[0, 1, -5]} />
-      <ambientLight />
-    </Canvas>
-  );
+export default function App() {
+    return (
+        <BrowserRouter basename="/snoezelen">
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="squishCube" element={<SquishCube />} />
+                    <Route path="particles" element={<Particles />} />
+                    <Route path="fractales" element={<Fractales />} />
+                    <Route path="lavalamp" element={<Lavalamp />} />
+                    <Route path="*" element={<NoPage />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
-
-export default App;
