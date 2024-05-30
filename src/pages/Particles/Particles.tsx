@@ -177,7 +177,7 @@ export default function Particles() {
                     }}
                 />
                 <ParamSlider
-                    name="Chance of spawning randomly"
+                    name="Chances of Particles Spawning Randomly"
                     min="0"
                     max="1"
                     step="0.1"
