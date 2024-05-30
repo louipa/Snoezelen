@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Box from '../components/box';
+import Curve from '../components/curve';
 import { Canvas, useThree } from '@react-three/fiber';
 
 import * as THREE from 'three'; // Import the THREE object from the three package
@@ -18,7 +18,15 @@ export default function OpticFiber() {
     return (
         <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
             <SetBackgroundColor color="#222222" />
-            <Box position={[0, 0, -5]} />
+            <Curve
+                points={[
+                    new THREE.Vector3(0, 10, 0),
+                    new THREE.Vector3(-5, 5, 0),
+                    new THREE.Vector3(0, 0, 0),
+                    new THREE.Vector3(20, -5, 0),
+                    new THREE.Vector3(10, 0, 0)
+                ]}
+            />
             <ambientLight />
         </Canvas>
     );
