@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import './App.css';
-import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Lavalamp from './pages/Lavalamp';
 import SquishCube from './pages/SquishCube';
+import OpticFiber from './pages/OpticFiber';
 import Particles from './pages/Particles/Particles';
 import Fractales from './pages/Fractales';
 import Layout from './pages/Layout';
@@ -20,6 +19,7 @@ export default function App() {
                     <Route path="particles" element={<Particles />} />
                     <Route path="fractales" element={<Fractales />} />
                     <Route path="lavalamp" element={<Lavalamp />} />
+                    <Route path="opticfiber" element={<OpticFiber />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>

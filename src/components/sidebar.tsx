@@ -33,6 +33,10 @@ export default function Sidebar() {
             <Link className="menu-item" to="/particles">
                 Particles
             </Link>
+            <span className="item-separator" />
+            <Link className="menu-item" to="/opticfiber">
+                Optic Fiber
+            </Link>
             {elementSidebar}
         </Menu>
     );
