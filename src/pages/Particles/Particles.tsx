@@ -48,7 +48,10 @@ const Generator: React.FC<IParticles> = ({
     changeVectors = false
 }) => {
     const [interpolationProgress, setInterpolationProgress] = useState(-1);
-    const vectors = useRef<THREE.Vector3[][]>(randomFieldVectors(canvasLength));
+    const vectorsDivider = 4;
+    const vectors = useRef<THREE.Vector3[][]>(
+        randomFieldVectors(canvasLength / vectorsDivider)
+    );
     const previousVectors = useRef<THREE.Vector3[][]>(vectors.current);
     const transitionSteps = useRef(0);
     const maxTransitionSteps = maxSteps;
@@ -69,8 +72,11 @@ const Generator: React.FC<IParticles> = ({
                 state.clock.getElapsedTime() % maxTransitionSteps;
 
             if (interpolationProgress >= 0.99) {
+                console.log('change');
                 transitionSteps.current = 0;
-                const newVectors = randomFieldVectors(canvasLength);
+                const newVectors = randomFieldVectors(
+                    canvasLength / vectorsDivider
+                );
                 previousVectors.current = vectors.current;
                 vectors.current = newVectors;
                 setInterpolationProgress(0);
@@ -79,8 +85,14 @@ const Generator: React.FC<IParticles> = ({
 
         for (let i = 0; i < particles.length / 3; i++) {
             const i3 = i * 3;
-            const xIdx = Math.floor(particles[i3] + canvasLength / 2);
-            const yIdx = Math.floor(particles[i3 + 1] + canvasLength / 2);
+            const xIdx = Math.floor(
+                (particles[i3] + canvasLength / 2) *
+                    (vectors.current.length / canvasLength)
+            );
+            const yIdx = Math.floor(
+                (particles[i3 + 1] + canvasLength / 2) *
+                    (vectors.current.length / canvasLength)
+            );
             let progress = 1 - Math.abs(interpolationProgress);
             if (changeVectors) {
                 progress *= 2.5;
