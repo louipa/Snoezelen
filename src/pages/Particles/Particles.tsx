@@ -32,6 +32,7 @@ interface IParticles {
     canvasLength: number;
     speed: number;
     nbParticles: number;
+    particleSize: number;
     randomBorderPlacement?: number;
     changeVectors?: boolean;
     maxSteps?: number;
@@ -43,6 +44,7 @@ const Generator: React.FC<IParticles> = ({
     canvasLength,
     speed,
     nbParticles,
+    particleSize = 2,
     randomBorderPlacement = 5,
     maxSteps = 10,
     changeVectors = false
@@ -136,7 +138,7 @@ const Generator: React.FC<IParticles> = ({
 
     return (
         <Points positions={particles}>
-            <pointsMaterial size={2} color="white" />
+            <pointsMaterial size={particleSize} color="white" />
         </Points>
     );
 };
@@ -149,6 +151,7 @@ export default function Particles() {
     const [animationChange, setAnimationChange] = useState(true);
     const [animationSpeed, setAnimationSpeed] = useState(10);
     const [randomSpawn, setRandomSpawn] = useState(1);
+    const [particleSize, setParticleSize] = useState(2);
     const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
@@ -198,6 +201,16 @@ export default function Particles() {
                         setRandomSpawn(Number(e.currentTarget.value))
                     }
                 />
+                <ParamSlider
+                    name="Particle Size"
+                    min="0.1"
+                    max="10"
+                    step="0.1"
+                    defaultValue={String(particleSize)}
+                    onChange={(e) =>
+                        setParticleSize(Number(e.currentTarget.value))
+                    }
+                />
             </div>
         );
         return () => {
@@ -219,6 +232,7 @@ export default function Particles() {
                     nbParticles={nbParticles}
                     canvasLength={canvasLength}
                     speed={speed}
+                    particleSize={particleSize}
                     changeVectors={animationChange}
                     maxSteps={animationSpeed}
                     randomBorderPlacement={randomSpawn}
