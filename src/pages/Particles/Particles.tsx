@@ -82,6 +82,9 @@ const Generator: React.FC<IParticles> = ({
             const xIdx = Math.floor(particles[i3] + canvasLength / 2);
             const yIdx = Math.floor(particles[i3 + 1] + canvasLength / 2);
             let progress = 1 - Math.abs(interpolationProgress);
+            if (changeVectors) {
+                progress *= 2.5;
+            }
             const v0 = previousVectors.current[xIdx][yIdx];
             const v1 = vectors.current[xIdx][yIdx];
             const v = new THREE.Vector3(
@@ -129,11 +132,11 @@ const Generator: React.FC<IParticles> = ({
 export default function Particles() {
     const canvasLength = 150;
     const nbParticles = 20000;
-    const [speed, setSpeed] = useState(1);
+    const [speed, setSpeed] = useState(0.5);
     const [blur, setBlur] = useState(false);
     const [animationChange, setAnimationChange] = useState(true);
     const [animationSpeed, setAnimationSpeed] = useState(10);
-    const [randomSpawn, setRandomSpawn] = useState(0.5);
+    const [randomSpawn, setRandomSpawn] = useState(1);
     const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
@@ -168,13 +171,13 @@ export default function Particles() {
                     min="0"
                     max="5"
                     step="0.05"
-                    defaultValue="10"
+                    defaultValue={String(speed)}
                     onChange={(e) => {
                         setSpeed(Number(e.currentTarget.value));
                     }}
                 />
                 <ParamSlider
-                    name="Chance of spawning randomly"
+                    name="Chances of Particles Spawning Randomly"
                     min="0"
                     max="1"
                     step="0.1"
