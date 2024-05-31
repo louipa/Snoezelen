@@ -1,42 +1,84 @@
 import { Line } from '@react-three/drei';
 import * as THREE from 'three';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import { useFrame } from '@react-three/fiber';
 
-function CubeFollowingCurve({ curve }) {
-    const meshRef = useRef();
+export function LineFollowingCurve({
+    curve,
+    numPoints,
+    animationDuration,
+    lineLength,
+    color
+}) {
+    const lineRef = useRef();
+    const lightRef = useRef();
     const [visible, setVisible] = useState(true);
+    const [points, setPoints] = useState([
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, 0, 0)
+    ]);
 
-    // Hook useFrame pour mettre à jour la position du cube à chaque frame
+    let curvePoints = curve.getPoints(numPoints);
+
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
-        const t = (elapsedTime % 5) / 5; // Un cycle complet toutes les 5 secondes
-        const point = curve.getPointAt(t);
+        const t = (elapsedTime % animationDuration) / animationDuration;
+        const start = Math.floor(t * curvePoints.length);
+        const end = Math.min(start + 1 + lineLength, curvePoints.length);
 
-        if (meshRef.current) {
-            meshRef.current.position.set(point.x, point.y, point.z);
+        setPoints(curvePoints.slice(start, end));
+
+        if (lineRef.current) {
+            lineRef.current.geometry.setFromPoints(points);
 
             if (t === 1) {
-                setVisible(false); // Rendre le cube invisible à la fin
+                setVisible(false);
+            }
+        }
+
+        if (lightRef.current) {
+            console.log(start);
+            const lightPosition = curvePoints[start];
+            if (lightPosition) {
+                lightRef.current.position.copy(lightPosition);
             }
         }
     });
 
     if (!visible) {
-        return null; // Ne pas rendre le cube s'il n'est pas visible
+        return null;
     }
 
     return (
-        <mesh ref={meshRef}>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial color={'blue'} />
-        </mesh>
+        <>
+            <Line points={points} color={color} lineWidth={2} />
+            <pointLight
+                ref={lightRef}
+                color={color}
+                intensity={50}
+                distance={10}
+            />
+        </>
     );
 }
 
-export default function Curve(props: { points: THREE.Vector3[] | undefined }) {
+export default function Curve(props: { numPoints: any; points: any }) {
+    const numPoints = props.numPoints;
+
     const curve = new THREE.CatmullRomCurve3(props.points);
 
-    const curvePoints = curve.getPoints(50);
+    const curvePoints = curve.getPoints(numPoints);
 
-    return <Line points={curvePoints} color="red" lineWidth={2} />;
+    return (
+        <>
+            <Line points={curvePoints} color="#FFFFFF" lineWidth={2} />
+            <LineFollowingCurve
+                curve={curve}
+                numPoints={numPoints}
+                animationDuration={2}
+                lineLength={20}
+                color={'red'}
+            />
+        </>
+    );
 }

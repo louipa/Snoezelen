@@ -3,6 +3,7 @@ import Curve from '../components/curve';
 import { Canvas, useThree } from '@react-three/fiber';
 
 import * as THREE from 'three'; // Import the THREE object from the three package
+import Box from '../components/box';
 
 const SetBackgroundColor = ({ color }: { color: string }) => {
     const { scene } = useThree();
@@ -26,8 +27,12 @@ export default function OpticFiber() {
                     new THREE.Vector3(20, -5, 0),
                     new THREE.Vector3(10, 0, 0)
                 ]}
+                numPoints={200}
             />
-            <ambientLight />
+            <mesh scale={100} position={[0, 0, -10]}>
+                <boxGeometry args={[1, 1, 0.1]} />
+                <meshStandardMaterial color={'#ffffff'} />
+            </mesh>
         </Canvas>
     );
 }
