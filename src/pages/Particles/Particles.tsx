@@ -32,6 +32,7 @@ interface IParticles {
     canvasLength: number;
     speed: number;
     nbParticles: number;
+    particleSize: number;
     randomBorderPlacement?: number;
     changeVectors?: boolean;
     maxSteps?: number;
@@ -43,12 +44,16 @@ const Generator: React.FC<IParticles> = ({
     canvasLength,
     speed,
     nbParticles,
+    particleSize = 2,
     randomBorderPlacement = 5,
     maxSteps = 10,
     changeVectors = false
 }) => {
     const [interpolationProgress, setInterpolationProgress] = useState(-1);
-    const vectors = useRef<THREE.Vector3[][]>(randomFieldVectors(canvasLength));
+    const vectorsDivider = 4;
+    const vectors = useRef<THREE.Vector3[][]>(
+        randomFieldVectors(canvasLength / vectorsDivider)
+    );
     const previousVectors = useRef<THREE.Vector3[][]>(vectors.current);
     const transitionSteps = useRef(0);
     const maxTransitionSteps = maxSteps;
@@ -69,8 +74,11 @@ const Generator: React.FC<IParticles> = ({
                 state.clock.getElapsedTime() % maxTransitionSteps;
 
             if (interpolationProgress >= 0.99) {
+                console.log('change');
                 transitionSteps.current = 0;
-                const newVectors = randomFieldVectors(canvasLength);
+                const newVectors = randomFieldVectors(
+                    canvasLength / vectorsDivider
+                );
                 previousVectors.current = vectors.current;
                 vectors.current = newVectors;
                 setInterpolationProgress(0);
@@ -79,8 +87,14 @@ const Generator: React.FC<IParticles> = ({
 
         for (let i = 0; i < particles.length / 3; i++) {
             const i3 = i * 3;
-            const xIdx = Math.floor(particles[i3] + canvasLength / 2);
-            const yIdx = Math.floor(particles[i3 + 1] + canvasLength / 2);
+            const xIdx = Math.floor(
+                (particles[i3] + canvasLength / 2) *
+                    (vectors.current.length / canvasLength)
+            );
+            const yIdx = Math.floor(
+                (particles[i3 + 1] + canvasLength / 2) *
+                    (vectors.current.length / canvasLength)
+            );
             let progress = 1 - Math.abs(interpolationProgress);
             if (changeVectors) {
                 progress *= 2.5;
@@ -124,7 +138,7 @@ const Generator: React.FC<IParticles> = ({
 
     return (
         <Points positions={particles}>
-            <pointsMaterial size={2} color="white" />
+            <pointsMaterial size={particleSize} color="white" />
         </Points>
     );
 };
@@ -137,6 +151,7 @@ export default function Particles() {
     const [animationChange, setAnimationChange] = useState(true);
     const [animationSpeed, setAnimationSpeed] = useState(10);
     const [randomSpawn, setRandomSpawn] = useState(1);
+    const [particleSize, setParticleSize] = useState(2);
     const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
@@ -186,6 +201,16 @@ export default function Particles() {
                         setRandomSpawn(Number(e.currentTarget.value))
                     }
                 />
+                <ParamSlider
+                    name="Particle Size"
+                    min="0.1"
+                    max="10"
+                    step="0.1"
+                    defaultValue={String(particleSize)}
+                    onChange={(e) =>
+                        setParticleSize(Number(e.currentTarget.value))
+                    }
+                />
             </div>
         );
         return () => {
@@ -207,6 +232,7 @@ export default function Particles() {
                     nbParticles={nbParticles}
                     canvasLength={canvasLength}
                     speed={speed}
+                    particleSize={particleSize}
                     changeVectors={animationChange}
                     maxSteps={animationSpeed}
                     randomBorderPlacement={randomSpawn}
