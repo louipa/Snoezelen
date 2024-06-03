@@ -6,10 +6,7 @@ import { Line, Points } from '@react-three/drei';
 import SidebarContext from '../../components/sidebarContext.js';
 import ParamSlider from '../../components/parameters/paramSlider.js';
 import ParamCheckBox from '../../components/parameters/paramCheckBox.js';
-
-function randomInteger(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import { randomInteger } from '../../utils.js';
 
 const SetBackgroundColor = ({ color }) => {
     const { scene } = useThree();

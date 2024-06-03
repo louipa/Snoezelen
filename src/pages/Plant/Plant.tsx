@@ -10,7 +10,7 @@ const Plant: React.FC<IPlant> = () => {
             <Canvas camera={{}} style={{ backgroundColor: 'black' }}>
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} />
-                <Tree depth={5} />
+                <Tree depth={4} />
             </Canvas>
         </>
     );
