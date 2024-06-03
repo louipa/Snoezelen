@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Lavalamp from './pages/Lavalamp';
 import SquishCube from './pages/SquishCube';
 import Particles from './pages/Particles/Particles';
+import Fluid from './pages/Fluid/FluidPage';
 import Fractales from './pages/Fractales';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
@@ -18,6 +19,7 @@ export default function App() {
                     <Route index element={<Home />} />
                     <Route path="squishCube" element={<SquishCube />} />
                     <Route path="particles" element={<Particles />} />
+                    <Route path="fluid" element={<Fluid />} />
                     <Route path="fractales" element={<Fractales />} />
                     <Route path="lavalamp" element={<Lavalamp />} />
                     <Route path="*" element={<NoPage />} />
