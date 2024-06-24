@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import Polygon from '../components/Polygon';
-import { Float, Point, PointMaterial, Points } from '@react-three/drei';
+import { Points } from '@react-three/drei';
 import SidebarContext from '../components/sidebarContext';
 import ParamSlider from '../components/parameters/paramSlider';
 
