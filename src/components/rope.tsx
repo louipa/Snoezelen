@@ -6,8 +6,8 @@ import { Line } from '@react-three/drei';
 
 const GRAVITY = new THREE.Vector3(0, -0.02, 0);
 const DAMPING = 0.9;
-const SEGMENTS = 40;
-const SEGMENT_LENGTH = 0.25;
+const SEGMENTS = 200;
+const SEGMENT_LENGTH = 0.1;
 const MOUSE_FORCE = 0.002;
 
 export function LineFollowingCurve({
@@ -57,7 +57,7 @@ export function LineFollowingCurve({
             <pointLight
                 ref={lightRef}
                 color={color}
-                intensity={3}
+                intensity={5}
                 distance={6.5}
             />
         </>
@@ -119,20 +119,14 @@ const Rope = ({ x, y }) => {
             velocities[i].multiplyScalar(DAMPING);
 
             points[i].add(velocities[i]);
-        }
 
-        // Correct the segment lengths
-        for (let iteration = 0; iteration < 60; iteration++) {
-            for (let j = 0; j < points.length - 1; j++) {
-                const segment = points[j + 1].clone().sub(points[j]);
-                const currentLength = segment.length();
-                const correction = segment.multiplyScalar(
-                    (currentLength - SEGMENT_LENGTH) / currentLength / 2
-                );
-                if (j > 0) {
-                    points[j].add(correction);
-                }
-                points[j + 1].sub(correction);
+            const segment = points[i].clone().sub(points[i - 1]);
+            const currentLength = segment.length();
+            if (currentLength > SEGMENT_LENGTH) {
+                const correction = segment
+                    .normalize()
+                    .multiplyScalar(currentLength - SEGMENT_LENGTH);
+                points[i].sub(correction);
             }
         }
 

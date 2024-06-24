@@ -17,7 +17,7 @@ const SetBackgroundColor = ({ color }: { color: string }) => {
 };
 
 export default function OpticFiber() {
-    const ropePositions = Array.from({ length: 41 }, (_, i) => -2 + i * 0.1);
+    const ropePositions = Array.from({ length: 81 }, (_, i) => -12 + i * 0.3);
     return (
         <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
             <SetBackgroundColor color="#222222" />
