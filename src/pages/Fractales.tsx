@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import Polygon from '../components/Polygon';
 import { Float, Point, PointMaterial, Points } from '@react-three/drei';
-
-interface IFractales {}
+import SidebarContext from '../components/sidebarContext';
+import ParamSlider from '../components/parameters/paramSlider';
 
 function randomInteger(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -24,11 +24,12 @@ function pickHex(color1, color2, weight) {
     ];
 }
 
-const Fractales: React.FC<IFractales> = () => {
+const Fractales: React.FC = () => {
+    const { setElementSidebar } = useContext(SidebarContext);
     const radius = 4;
     const nbPoints = 100000;
     const [sides, setSides] = useState(3);
-    const [interpolation, setInterpolation] = useState(0.7);
+    const [interpolation, setInterpolation] = useState(0.5);
     const points = useMemo(() => {
         const vertices = [];
         const baseAngle = (2 * Math.PI) / sides;
@@ -74,29 +75,36 @@ const Fractales: React.FC<IFractales> = () => {
         return [positions, colors];
     }, [radius, sides, nbPoints, interpolation]);
 
+    useEffect(() => {
+        setElementSidebar(
+            <div className="parameter-container">
+                <h3>Personalize your experience</h3>
+                <ParamSlider
+                    name="Interpolation"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    defaultValue="0.5"
+                    onChange={(e) =>
+                        setInterpolation(Number(e.currentTarget.value))
+                    }
+                />
+                <ParamSlider
+                    name="Number of sides"
+                    min="3"
+                    max="15"
+                    step="1"
+                    defaultValue="3"
+                    onChange={(e) => setSides(Number(e.currentTarget.value))}
+                />
+            </div>
+        );
+        return () => {
+            setElementSidebar(<></>);
+        };
+    }, [setElementSidebar]);
     return (
         <>
-            <input
-                type="range"
-                name="pos"
-                id="pos"
-                min="0"
-                max="1"
-                step="0.01"
-                value={interpolation}
-                onChange={(e) =>
-                    setInterpolation(Number(e.currentTarget.value))
-                }
-            />
-            <input
-                type="range"
-                name="rad"
-                id="rad"
-                min="3"
-                max="15"
-                value={sides}
-                onChange={(e) => setSides(Number(e.currentTarget.value))}
-            />
             <Canvas camera={{}} style={{ backgroundColor: 'black' }}>
                 <Polygon radius={radius} sides={sides} />
                 <Points positions={points[0]} colors={points[1]}>

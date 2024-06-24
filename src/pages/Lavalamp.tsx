@@ -1,44 +1,61 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { lavaAnimation } from './LavaAnimation.js';
 import SidebarContext from '../components/sidebarContext.js';
+import ParamSlider from '../components/parameters/paramSlider.js';
 
 let lavaAnim: lavaAnimation;
 
-const setBallNumber = (event) => {
+const setBallNumber = (event: { target: { value: any } }) => {
     if (lavaAnim && lavaAnim.setBallNumber) {
         lavaAnim.setBallNumber(event.target.value);
     }
 };
 
-const setBallSize = (event) => {
-    if (lavaAnim && lavaAnim.setBallNumber) {
+const setBallSize = (event: { target: { value: any } }) => {
+    if (lavaAnim && lavaAnim.setBallSize) {
         lavaAnim.setBallSize(event.target.value);
     }
 };
 
-export default function Liquid() {
+const setBallSpeed = (event: { target: { value: any } }) => {
+    if (lavaAnim && lavaAnim.setBallSpeed) {
+        lavaAnim.setBallSpeed(event.target.value);
+    }
+};
+
+export default function Lavalamp() {
     const { setElementSidebar } = useContext(SidebarContext);
 
     useEffect(() => {
         lavaAnim = lavaAnimation();
         setElementSidebar(
-            <>
-                <input
-                    type="range"
+            <div className="parameter-container">
+                <h3>Personalize your experience</h3>
+                <ParamSlider
+                    name="Ball number"
                     min="1"
                     max="30"
+                    step="1"
                     defaultValue="10"
                     onChange={setBallNumber}
                 />
-                <input
-                    type="range"
+                <ParamSlider
+                    name="Ball size"
                     min="0.1"
                     max="3"
                     step="0.1"
                     defaultValue="1"
                     onChange={setBallSize}
                 />
-            </>
+                <ParamSlider
+                    name="Ball speed"
+                    min="0.1"
+                    max="2"
+                    step="0.05"
+                    defaultValue="0.25"
+                    onChange={setBallSpeed}
+                />
+            </div>
         );
         lavaAnim.changeState();
         lavaAnim.run();

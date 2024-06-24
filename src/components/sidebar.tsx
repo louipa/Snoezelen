@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import { elastic as Menu } from 'react-burger-menu';
+import { push as Menu } from 'react-burger-menu';
 import './sidebar.css';
 import { Outlet, Link } from 'react-router-dom';
 import SidebarContext from './sidebarContext';
@@ -22,8 +22,20 @@ export default function Sidebar() {
                 Squish Cube
             </Link>
             <span className="item-separator" />
-            <Link className="menu-item" to="/liquid">
-                Liquid
+            <Link className="menu-item" to="/lavalamp">
+                Lava Lamp
+            </Link>
+            <span className="item-separator" />
+            <Link className="menu-item" to="/fractales">
+                Fractals
+            </Link>
+            <span className="item-separator" />
+            <Link className="menu-item" to="/particles">
+                Particles
+            </Link>
+            <span className="item-separator" />
+            <Link className="menu-item" to="/fluid">
+                Fluid
             </Link>
             {elementSidebar}
         </Menu>
