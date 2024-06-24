@@ -26,8 +26,12 @@ export default function Sidebar() {
                 Lava Lamp
             </Link>
             <span className="item-separator" />
+            <Link className="menu-item" to="/fractales2">
+                Fractales
+            </Link>
+            <span className="item-separator" />
             <Link className="menu-item" to="/fractales">
-                Fractals
+                Chaos Game
             </Link>
             <span className="item-separator" />
             <Link className="menu-item" to="/particles">
