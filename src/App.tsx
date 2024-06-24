@@ -6,6 +6,7 @@ import SquishCube from './pages/SquishCube';
 import Particles from './pages/Particles/Particles';
 import Fluid from './pages/Fluid/FluidPage';
 import Fractales from './pages/Fractales';
+import FractalesShader from './pages/FractalesShader';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import NoPage from './pages/NoPage';
@@ -20,6 +21,7 @@ export default function App() {
                     <Route path="particles" element={<Particles />} />
                     <Route path="fluid" element={<Fluid />} />
                     <Route path="fractales" element={<Fractales />} />
+                    <Route path="fractales2" element={<FractalesShader />} />
                     <Route path="lavalamp" element={<Lavalamp />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
