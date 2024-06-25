@@ -9,22 +9,19 @@ const experiences = [
         title: 'Expérience 1',
         description: "Description de l'expérience 1",
         image: 'url_image_experience_1',
-        bgColor1: 'blue',
-        bgColor2: 'yellow'
+        cssClass: 'bgColor1'
     },
     {
         title: 'Expérience 2',
         description: "Description de l'expérience 2",
         image: 'url_image_experience_2',
-        bgColor1: 'red',
-        bgColor2: 'green'
+        cssClass: 'bgColor2'
     },
     {
         title: 'Expérience 3',
         description: "Description de l'expérience 3",
         image: 'url_image_experience_3',
-        bgColor1: 'red',
-        bgColor2: 'yellow'
+        cssClass: 'bgColor3'
     }
 ];
 
@@ -100,21 +97,20 @@ const CarouselExperiences: React.FC = () => {
                     alignItems: 'center',
                     minHeight: '100vh',
                     textAlign: 'center',
-                    background:
-                        'linear-gradient(351deg, var(--myColor1), var(--myColor2))',
-
-                    transition: '--myColor1 1s, --myColor2 1s, background 1s',
-                    '--myColor1': experiences[experienceIndex].bgColor1,
-                    '--myColor2': experiences[experienceIndex].bgColor2
+                    position: 'relative',
+                    overflow: 'hidden'
                 } as React.CSSProperties
             }
         >
+            <div
+                className={`coloredBG ${experiences[experienceIndex].cssClass}`}
+            ></div>
             <div>
                 <h2>Mes Expériences</h2>
                 <div
                     style={{
                         position: 'relative',
-                        maxWidth: '800px',
+                        maxWidth: 'min(800px, 100vw)',
                         margin: '0 auto'
                     }}
                 >
