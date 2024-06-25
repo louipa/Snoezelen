@@ -38,6 +38,10 @@ export default function Sidebar() {
                 Particles
             </Link>
             <span className="item-separator" />
+            <Link className="menu-item" to="/opticfiber">
+                Optic Fiber
+            </Link>
+            <span className="item-separator" />
             <Link className="menu-item" to="/fluid">
                 Fluid
             </Link>
