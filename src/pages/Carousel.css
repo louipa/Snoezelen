@@ -1,0 +1,11 @@
+@property --myColor1 {
+    syntax: '<color>';
+    initial-value: magenta;
+    inherits: false;
+}
+
+@property --myColor2 {
+    syntax: '<color>';
+    initial-value: #00ff00;
+    inherits: false;
+}
