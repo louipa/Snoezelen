@@ -5,9 +5,7 @@ import * as THREE from 'three';
 
 const GRAVITY = new THREE.Vector3(0, -0.02, 0);
 const DAMPING = 0.9;
-const SEGMENTS = 80;
-const SEGMENT_LENGTH = 0.25;
-const MOUSE_FORCE = 0.002;
+const MOUSE_FORCE = 0.12;
 const CORRECTION_THRESHOLD = 0.03;
 
 class ObjectPool {
@@ -15,11 +13,11 @@ class ObjectPool {
         this.createFunc = createFunc;
         this.pool = [];
         for (let i = 0; i < size; i++) {
-            this.pool.push(createFunc());
+            this.pool.push(this.createFunc());
         }
     }
 
-    get() {
+    acquire() {
         return this.pool.length > 0 ? this.pool.pop() : this.createFunc();
     }
 
@@ -28,14 +26,14 @@ class ObjectPool {
     }
 }
 
-const vectorPool = new ObjectPool(() => new THREE.Vector3(), 100);
+const vector3Pool = new ObjectPool(() => new THREE.Vector3(), 100);
 
-const Rope = ({ x, y }) => {
+const Rope = ({ x, y, segmentNumber, segmentLength }) => {
     const { viewport, mouse } = useThree();
     const points = useMemo(() => {
         const pointsArray = [];
-        for (let i = 0; i <= SEGMENTS; i++) {
-            pointsArray.push(new THREE.Vector3(x, -i * SEGMENT_LENGTH + y, 0));
+        for (let i = 0; i <= segmentNumber; i++) {
+            pointsArray.push(new THREE.Vector3(x, -i * segmentLength + y, 0));
         }
         return pointsArray;
     }, [x, y]);
@@ -71,8 +69,8 @@ const Rope = ({ x, y }) => {
     useFrame((state, delta) => {
         setAnimationElapsedTime((prevTime) => prevTime + delta);
 
-        const mousePosition = vectorPool
-            .get()
+        const mousePosition = vector3Pool
+            .acquire()
             .set(
                 (mouse.x * viewport.width) / 2,
                 (mouse.y * viewport.height) / 2,
@@ -84,41 +82,38 @@ const Rope = ({ x, y }) => {
         for (let i = 1; i < points.length; i++) {
             velocities[i].add(GRAVITY);
 
-            const direction = vectorPool
-                .get()
-                .copy(points[i])
-                .sub(mousePosition);
+            const direction = vector3Pool
+                .acquire()
+                .subVectors(points[i], mousePosition);
             const distance = direction.length();
             const force = direction
                 .normalize()
-                .multiplyScalar(
-                    (MOUSE_FORCE * 30) / (distance * distance + 0.1)
-                );
+                .multiplyScalar(MOUSE_FORCE / (distance * distance * distance));
             velocities[i].add(force);
 
             velocities[i].multiplyScalar(DAMPING);
 
             points[i].add(velocities[i]);
 
-            const segment = vectorPool
-                .get()
-                .copy(points[i])
-                .sub(points[i - 1]);
+            const segment = vector3Pool
+                .acquire()
+                .subVectors(points[i], points[i - 1]);
             const currentLength = segment.length();
             if (
-                Math.abs(currentLength - SEGMENT_LENGTH) > CORRECTION_THRESHOLD
+                Math.abs(currentLength - segmentLength) > CORRECTION_THRESHOLD
             ) {
                 const correction = segment
                     .normalize()
-                    .multiplyScalar(currentLength - SEGMENT_LENGTH);
+                    .multiplyScalar(currentLength - segmentLength);
                 points[i].sub(correction);
                 pointsUpdated = true;
             }
-            vectorPool.release(direction);
-            vectorPool.release(segment);
+
+            vector3Pool.release(direction);
+            vector3Pool.release(segment);
         }
 
-        vectorPool.release(mousePosition);
+        vector3Pool.release(mousePosition);
 
         if (pointsUpdated) {
             ref.current.geometry.setFromPoints(points);
@@ -126,7 +121,7 @@ const Rope = ({ x, y }) => {
         }
 
         const animationDuration = 1;
-        const lineLength = 5;
+        const lineLength = segmentNumber / 10;
         const t =
             (animationElapsedTime % animationDuration) / animationDuration;
         const start = Math.floor(t * curvePoints.length);
