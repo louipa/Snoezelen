@@ -1,3 +1,5 @@
+import { add } from 'three/examples/jsm/libs/tween.module.js';
+
 export function lavaAnimation() {
     let stop = true;
     let metaballs;
@@ -336,6 +338,40 @@ export function lavaAnimation() {
             '#0040ff',
             canvasContext
         );
+
+        screenConfig.element.addEventListener('click', (event) => {
+            const rect = screenConfig.element.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+            handleCanvasClick(mouseX, mouseY);
+        });
+
+        const handleCanvasClick = (mouseX, mouseY) => {
+            for (let ball of metaballs.balls) {
+                const distance = Math.sqrt(
+                    Math.pow(ball.position.x - mouseX, 2) +
+                        Math.pow(ball.position.y - mouseY, 2)
+                );
+
+                if (distance < ball.size) {
+                    ball.size /= 1.42;
+                    const newBall = new Ball(metaballs);
+                    newBall.position = new Vector(
+                        ball.position.x,
+                        ball.position.y
+                    );
+                    newBall.size = ball.size;
+                    newBall.velocity = new Vector(
+                        -ball.velocity.x,
+                        -ball.velocity.y
+                    );
+
+                    metaballs.balls.push(newBall);
+                    metaballs.recalculateForces();
+                    break;
+                }
+            }
+        };
 
         const animationFrame = () => {
             if (stop) return;
