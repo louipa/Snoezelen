@@ -110,6 +110,7 @@ export default function OpticFiber() {
                     y={10}
                     segmentNumber={segmentNumber}
                     segmentLength={segmentLength}
+                    starting={index * 0.1}
                 />
             ))}
         </Canvas>
