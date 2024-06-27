@@ -400,7 +400,8 @@
     position: absolute;
     width: min(800px, 100vw);
     aspect-ratio: 2/1.13;
-    top: 12.5vh;
+    top: 50%;
+    transform: translateY(calc(-50% - 1.7em));
     background-color: rgba(0, 0, 0, 0.742);
     border-radius: 2em;
 }
@@ -411,6 +412,7 @@
         width: unset;
         aspect-ratio: unset;
         border-radius: unset;
+        transform: unset;
     }
 }
 
