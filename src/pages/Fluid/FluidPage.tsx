@@ -115,6 +115,7 @@ export default function FluidPage() {
                 backgroundColor: 'black'
             }}
         >
+            <SnoezelenAudio />
             <div className="canvaContainer">
                 {Array.from({ length: 4 }, (_, i) => (
                     <Canvas
