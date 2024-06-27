@@ -16,8 +16,8 @@ export default function App() {
     return (
         <HashRouter>
             <Routes>
+                <Route index element={<CarouselExperiences />} />
                 <Route path="/" element={<Layout />}>
-                    <Route index element={<CarouselExperiences />} />
                     <Route path="squishCube" element={<SquishCube />} />
                     <Route path="particles" element={<Particles />} />
                     <Route path="fluid" element={<Fluid />} />
