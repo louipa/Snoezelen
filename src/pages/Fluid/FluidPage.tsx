@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Fluid from './Fluid';
 import { Canvas, useThree } from '@react-three/fiber';
 import { randomFieldVectors } from '../Particles/perlin';
+import SnoezelenAudio from '../SnoezelenAudio';
 import './Fluid.css';
 
 import * as THREE from 'three';
@@ -57,6 +58,7 @@ export default function FluidPage() {
                 backgroundColor: 'black'
             }}
         >
+            <SnoezelenAudio></SnoezelenAudio>
             {Array.from({ length: 4 }, (_, i) => (
                 <Canvas
                     key={i}
