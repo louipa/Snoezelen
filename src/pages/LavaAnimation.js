@@ -286,9 +286,11 @@ export function lavaAnimation(playSound) {
                     }
                 }
             }
-
             if (Object.values(this.collisionState).some((e) => e)) {
-                if (window.navigator.userAgentData.mobile) {
+                if (
+                    window.navigator.userAgentData &&
+                    window.navigator.userAgentData.mobile
+                ) {
                     window.navigator.vibrate(10);
                 }
             }
