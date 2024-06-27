@@ -40,8 +40,8 @@ const fragment = `
         }
         
         vec3 col = vec3( dmin.w );
-        col = mix( col, vec3(0.68,0.9, 0.361),   min(1.0,pow(dmin.x*0.25,0.20)) );
-        col = mix( col, vec3(0.4,0.435,0.4),     min(1.0,pow(dmin.y*0.50,0.50)) );
+        col = mix( col, vec3(0.68,0.5, 0.661),   min(1.0,pow(dmin.x*0.25,0.20)) );
+        col = mix( col, vec3(0.4,0.135,0.8),     min(1.0,pow(dmin.y*0.10,0.50)) );
         col = mix( col, vec3(0,0.788,0.655), 1.0-min(1.0,pow(dmin.z*1.00,0.15) ));
 
         col = 1.25*col*col;

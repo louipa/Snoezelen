@@ -28,7 +28,7 @@ class ObjectPool {
 
 const vector3Pool = new ObjectPool(() => new THREE.Vector3(), 100);
 
-const Rope = ({ x, y, segmentNumber, segmentLength }) => {
+const Rope = ({ x, y, segmentNumber, segmentLength, starting }) => {
     const { viewport, mouse } = useThree();
     const points = useMemo(() => {
         const pointsArray = [];
@@ -123,7 +123,8 @@ const Rope = ({ x, y, segmentNumber, segmentLength }) => {
         const animationDuration = 1;
         const lineLength = segmentNumber / 10;
         const t =
-            (animationElapsedTime % animationDuration) / animationDuration;
+            ((animationElapsedTime + starting) % animationDuration) /
+            animationDuration;
         const start = Math.floor(t * curvePoints.length);
         const end = Math.min(start + lineLength, curvePoints.length);
         const linePoints = curvePoints.slice(start, end);
