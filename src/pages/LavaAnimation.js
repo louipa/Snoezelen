@@ -1,4 +1,6 @@
-export function lavaAnimation() {
+import { add } from 'three/examples/jsm/libs/tween.module.js';
+
+export function lavaAnimation(playSound) {
     let stop = true;
     let metaballs;
     let sizeFactor = 1;
@@ -17,8 +19,16 @@ export function lavaAnimation() {
             return new Vector(this.x + vector.x, this.y + vector.y);
         }
 
+        subtract(vector) {
+            return new Vector(this.x - vector.x, this.y - vector.y);
+        }
+
         multiply(factor) {
             return new Vector(this.x * factor, this.y * factor);
+        }
+
+        length() {
+            return Math.sqrt(this.magnitude);
         }
     }
 
@@ -114,6 +124,12 @@ export function lavaAnimation() {
             for (let i = 0; i < ballCount; i++) {
                 this.balls[i] = new Ball(this);
             }
+
+            this.collisionState = {};
+        }
+
+        generateKey(i, j) {
+            return `${i}-${j}`;
         }
 
         createGradient(x, y, radius, color1, color2, context) {
@@ -248,6 +264,35 @@ export function lavaAnimation() {
                 ball.move();
             }
 
+            for (let i = 0; i < this.balls.length; i++) {
+                for (let j = i + 1; j < this.balls.length; j++) {
+                    const distance = this.balls[i].position.subtract(
+                        this.balls[j].position
+                    );
+                    const key = this.generateKey(i, j);
+                    const collisionDistance =
+                        (this.balls[i].size + this.balls[j].size) * 1.66;
+                    if (distance.length() < collisionDistance) {
+                        if (!this.collisionState[key]) {
+                            console.log('collision');
+                            playSound();
+                            this.collisionState[key] = true;
+                        }
+                    } else {
+                        if (this.collisionState[key]) {
+                            console.log('detached');
+                            this.collisionState[key] = false;
+                        }
+                    }
+                }
+            }
+
+            if (Object.values(this.collisionState).some((e) => e)) {
+                if (window.navigator.userAgentData.mobile) {
+                    window.navigator.vibrate(10);
+                }
+            }
+
             for (let ball of this.balls) {
                 let point = [
                     Math.round(ball.position.x / this.step),
@@ -337,6 +382,40 @@ export function lavaAnimation() {
             canvasContext
         );
 
+        screenConfig.element.addEventListener('click', (event) => {
+            const rect = screenConfig.element.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+            handleCanvasClick(mouseX, mouseY);
+        });
+
+        const handleCanvasClick = (mouseX, mouseY) => {
+            for (let ball of metaballs.balls) {
+                const distance = Math.sqrt(
+                    Math.pow(ball.position.x - mouseX, 2) +
+                        Math.pow(ball.position.y - mouseY, 2)
+                );
+
+                if (distance < ball.size) {
+                    ball.size /= 1.42;
+                    const newBall = new Ball(metaballs);
+                    newBall.position = new Vector(
+                        ball.position.x,
+                        ball.position.y
+                    );
+                    newBall.size = ball.size;
+                    newBall.velocity = new Vector(
+                        -ball.velocity.x,
+                        -ball.velocity.y
+                    );
+
+                    metaballs.balls.push(newBall);
+                    metaballs.recalculateForces();
+                    break;
+                }
+            }
+        };
+
         const animationFrame = () => {
             if (stop) return;
             requestAnimationFrame(animationFrame);
@@ -363,6 +442,8 @@ export function lavaAnimation() {
                     metaballs.balls.pop();
                 }
             }
+
+            metaballs.collisionState = {};
 
             metaballs.recalculateForces();
         };

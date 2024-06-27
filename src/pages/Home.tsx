@@ -17,10 +17,10 @@ const Home = () => {
                     <Link to="/particles">Particles</Link>
                 </li>
                 <li>
-                    <Link to="fractales">Fractals</Link>
+                    <Link to="fractales2">Fractals</Link>
                 </li>
                 <li>
-                    <Link to="fractales2">Chaos Game</Link>
+                    <Link to="fractales">Chaos Game</Link>
                 </li>
                 <li>
                     <Link to="/fluid">Fluid</Link>

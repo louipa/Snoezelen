@@ -3,12 +3,12 @@ import React from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Lavalamp from './pages/Lavalamp';
 import SquishCube from './pages/SquishCube';
+import OpticFiber from './pages/OpticFiber';
 import Particles from './pages/Particles/Particles';
 import Fluid from './pages/Fluid/FluidPage';
 import Fractales from './pages/Fractales';
-import FractalesShader from './pages/SnoezelenAudio';
+import FractalesShader from './pages/FractalesShader';
 import Layout from './pages/Layout';
-import Home from './pages/Home';
 import NoPage from './pages/NoPage';
 import CarouselExperiences from './pages/Carousel';
 
@@ -24,6 +24,7 @@ export default function App() {
                     <Route path="fractales" element={<Fractales />} />
                     <Route path="fractales2" element={<FractalesShader />} />
                     <Route path="lavalamp" element={<Lavalamp />} />
+                    <Route path="opticfiber" element={<OpticFiber />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>

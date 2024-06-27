@@ -27,7 +27,7 @@ export default function Sidebar() {
             </Link>
             <span className="item-separator" />
             <Link className="menu-item" to="/fractales2">
-                Fractales
+                Fractals
             </Link>
             <span className="item-separator" />
             <Link className="menu-item" to="/fractales">
@@ -36,6 +36,10 @@ export default function Sidebar() {
             <span className="item-separator" />
             <Link className="menu-item" to="/particles">
                 Particles
+            </Link>
+            <span className="item-separator" />
+            <Link className="menu-item" to="/opticfiber">
+                Optic Fiber
             </Link>
             <span className="item-separator" />
             <Link className="menu-item" to="/fluid">
