@@ -41,18 +41,17 @@ const SnoezelenAudio: React.FC = () => {
             [493.88, 587.33, 698.46] // B diminished
         ];
 
-        const startTime = context.currentTime + 0.1;
-        const eighthNoteTime = 60 / 120 / 2; // 120 BPM
-
-        let chord = chords[Math.floor(Math.random() * chords.length)];
-        if (Math.random() >= 0.5) {
-            chord = chord.reverse();
-        }
-        chord.forEach((freq, i) => {
+        const chord = chords[Math.floor(Math.random() * chords.length)];
+        const isChord = Math.random() <= 0.4;
+        const shuffledNotes = chord
+            .map((value) => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value);
+        shuffledNotes.forEach((freq, i) => {
             playSound(
                 context,
                 kalimbaBuffer!,
-                context.currentTime + i + Math.random() * 0.5,
+                isChord ? 0 : context.currentTime + i + Math.random() * 0.5,
                 freq / 261.63, // Rate adjusted to match the frequency
                 false
             );
