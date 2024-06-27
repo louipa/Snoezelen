@@ -1,58 +1,426 @@
-@keyframes gradientChange {
-    from {
-        transform: translateY(0) scale(1.1);
-    }
-    to {
-        transform: translateY(-50%) scale(1.1);
-    }
-}
-
-.coloredBG {
+.seaBackground {
     position: absolute;
     inset: 0;
-    height: 200%;
-    animation: gradientChange 6s infinite ease-in-out alternate;
-    background: linear-gradient(10deg, white, rgb(24, 24, 24));
-    filter: brightness(2) contrast(2) brightness(0.5) blur(10px);
+    perspective: 800px;
 }
 
-.coloredBG::before {
+.seaBackground::before {
     content: '';
     position: absolute;
     inset: 0;
-    width: 500%;
-    transition: transform 1s;
+    height: 600%;
     background-image: linear-gradient(
-        80deg,
-        lime,
-        yellow,
-        red,
-        magenta,
-        blue,
-        pink,
-        orange
+        170deg,
+        #1c9df8,
+        #0118aa,
+        #001182,
+        #000318,
+        #01020c,
+        #341d00
     );
-    mix-blend-mode: multiply;
+    transition: transform 2s;
 }
 
+/* sunRays */
+
+.sunRays {
+    position: absolute;
+    inset: 0;
+    transform-origin: top center;
+    mix-blend-mode: lighten;
+    transform: rotate3d(1, 0, 0, 25deg);
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+@keyframes moveSide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.sunRays > div {
+    position: absolute;
+    inset: 0;
+    width: 200%;
+    background-size: 50%;
+    background-image: linear-gradient(to bottom, transparent, black),
+        linear-gradient(
+            to right,
+            transparent 0%,
+            transparent 2.2%,
+            white 3.5%,
+            white 3.8%,
+            transparent 5%,
+            transparent 7.5%,
+            white 8.8%,
+            white 11%,
+            transparent 12.3%,
+            transparent 27.5%,
+            white 29%,
+            white 29.1%,
+            transparent 30.5%,
+            transparent 50.5%,
+            white 52%,
+            white 54%,
+            transparent 55.5%,
+            transparent 75%,
+            white 76.5%,
+            white 76.6%,
+            transparent 78%
+        );
+    opacity: 0.5;
+    animation: moveSide 35s infinite linear;
+}
+
+.bgColor1 .sunRays {
+    opacity: 1;
+}
+
+.bgColor2 .sunRays {
+    opacity: 0.3;
+}
+
+/* ******* */
+
+/* seaWave */
+
+@keyframes moveSide2 {
+    from {
+        transform: translateX(-25%);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.seaWave {
+    position: absolute;
+    inset: 0;
+    transform-origin: top center;
+    mix-blend-mode: lighten;
+    transform: translateY(-100%) rotate3d(1, 0, 0, -65deg);
+    transition: transform 2s;
+}
+
+.seaWave::before {
+    content: '';
+    position: absolute;
+    inset: 0 -100%;
+    background-color: #4cfefe;
+}
+
+.seaWave > div {
+    position: absolute;
+    mix-blend-mode: multiply;
+    filter: grayscale(1);
+
+    inset: -2px;
+    width: 300%;
+    background-size: 25%;
+    animation: moveSide2 20s infinite linear;
+}
+
+.bgColor1 .seaWave {
+    transform: translateY(0%) rotate3d(1, 0, 0, -65deg);
+}
+
+/* ******* */
+
+@keyframes goUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-50%);
+    }
+}
+
+/* bubbles */
+
+.bubbles {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: lighten;
+    opacity: 0;
+    transform: translateY(100%);
+    transition:
+        opacity 2s,
+        transform 2s;
+}
+
+.bubbles > div {
+    position: absolute;
+    inset: 0;
+
+    height: 200%;
+    --backgroundBubble: none;
+    animation: goUp 20s infinite linear;
+}
+
+@keyframes struggle {
+    from {
+        transform: translateX(-3%);
+    }
+    to {
+        transform: translateX(3%);
+    }
+}
+
+.bubbles > div::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--backgroundBubble);
+    background-size: auto 25%;
+    animation: struggle 3s ease-in-out infinite alternate;
+}
+
+.bubbles > div::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--backgroundBubble);
+    background-size: auto 12.5%;
+    animation: struggle 3s 1s ease-in-out infinite alternate;
+}
+
+.bgColor2 .bubbles {
+    opacity: 0.5;
+    transform: translateY(0%);
+}
+
+.bgColor3 .bubbles {
+    opacity: 0.2;
+    transform: translateY(0%);
+}
+
+:is(.bgColor4, .bgColor5, .bgColor6) .bubbles {
+    transform: translateY(-200%);
+}
+
+/* ******* */
+
+/* fishs */
+
+.fishs {
+    position: absolute;
+    inset: 0;
+    --fishsSize: 10em;
+    transform: translateY(100%);
+    transition:
+        transform 2s,
+        filter 2s;
+}
+
+@keyframes moveFishs {
+    from {
+        transform: translateX(calc(0px - var(--fishsSize)));
+    }
+    to {
+        transform: translateX(calc(100%));
+    }
+}
+
+.fishs > div {
+    position: relative;
+    width: 100%;
+    height: var(--fishsSize);
+    transform: translateX(calc(100%));
+    animation: moveFishs 10s linear infinite;
+}
+
+.fishs > div:last-child {
+    animation-direction: reverse;
+    animation-delay: -3s;
+}
+
+@keyframes upFishs {
+    from {
+        transform: var(--face) translateY(-15%);
+    }
+    to {
+        transform: var(--face) translateY(15%);
+    }
+}
+
+.fishs > div::before {
+    --face: scale(1);
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: var(--fishsSize);
+    background-size: 100%;
+    background-image: var(--backgroundFishs);
+    aspect-ratio: 1/1;
+    animation: upFishs 2s ease-in-out infinite alternate;
+}
+
+.fishs > div:last-child:before {
+    --face: scale(-1.25, 1.25);
+}
+
+.bgColor3 .fishs {
+    transform: translateY(50%);
+}
+
+.bgColor4 .fishs {
+    filter: brightness(0.2);
+    transform: translateY(0%);
+}
+
+:is(.bgColor5, .bgColor6) .fishs {
+    transform: translateY(-100%);
+}
+
+/* ***** */
+
+/* stars */
+
+.stars {
+    position: absolute;
+    inset: 0;
+    height: 200%;
+    transform: translateY(100%);
+    background-size: 10em;
+    opacity: 0;
+    transition:
+        transform 2s,
+        opacity 2s;
+}
+
+.bgColor4 .stars {
+    opacity: 0.2;
+    transform: translateY(30%);
+}
+
+.bgColor5 .stars {
+    opacity: 0.6;
+    transform: translateY(0%);
+}
+
+.bgColor6 .stars {
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+/* ***** */
+
 .bgColor1::before {
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
 .bgColor2::before {
-    transform: translateX(-20%);
+    transform: translateY(-17%);
 }
 
 .bgColor3::before {
-    transform: translateX(-40%);
+    transform: translateY(-34%);
 }
 
 .bgColor4::before {
-    transform: translateX(-60%);
+    transform: translateY(-51%);
 }
 
 .bgColor5::before {
-    transform: translateX(-80%);
+    transform: translateY(-68%);
+}
+
+.bgColor6::before {
+    transform: translateY(-83%);
+}
+
+/* planete */
+
+@keyframes levitate {
+    from {
+        transform: rotate(360deg) translateX(8%) rotate(0deg);
+    }
+    to {
+        transform: rotate(0deg) translateX(8%) rotate(360deg);
+    }
+}
+
+.planete {
+    position: absolute;
+    inset: 0;
+    height: 150%;
+    filter: brightness(0.5);
+    transform: translateY(100%);
+    opacity: 0;
+    transition:
+        transform 2s,
+        opacity 0.5s;
+}
+
+.planete > * {
+    position: absolute;
+    animation: levitate 10s infinite linear;
+}
+
+.planete > :first-child {
+    top: 50%;
+    left: -7em;
+    width: 16em;
+}
+
+.planete > :nth-child(2) {
+    top: 15%;
+    right: -3em;
+    width: 12em;
+    animation-delay: -3s;
+    animation-direction: reverse;
+}
+
+.planete > :last-child {
+    top: 95%;
+    right: -7em;
+    width: 30em;
+    animation-delay: -7s;
+}
+
+.bgColor5 .planete {
+    opacity: 1;
+    transform: translateY(0%);
+}
+
+.bgColor6 .planete {
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+/* ******* */
+
+/** other **/
+
+.backFrame {
+    position: absolute;
+    width: min(800px, 100vw);
+    aspect-ratio: 2/1.13;
+    top: 12.5vh;
+    background-color: rgba(0, 0, 0, 0.742);
+    border-radius: 2em;
+}
+
+@media (max-width: 800px) {
+    .backFrame {
+        inset: 0;
+        width: unset;
+        aspect-ratio: unset;
+        border-radius: unset;
+    }
+}
+
+.slick-list {
+    mix-blend-mode: lighten;
+}
+
+.slick-slide img {
+    border-radius: 2em;
+    filter: brightness(2);
 }
 
 .slick-arrow {

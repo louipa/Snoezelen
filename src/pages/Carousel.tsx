@@ -3,25 +3,57 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Carousel.css';
+import SunRays from '/SunRays.png';
+import SeaWater from '/seaWater.jpg';
+import Bubble from '/bubble.png';
+import Fishs from '/fish.png';
+import Stars from '/stars.png';
+import ChaosGame from '/ChaosGame.webp';
+import Fluid from '/Fluid.webp';
+import Fractal from '/Fractal.webp';
+import LavaLamp from '/LavaLamp.webp';
+import OpticFiber from '/OpticFiber.webp';
+import Particles from '/Particles.webp';
+import Planete1 from '/firstPlanete.png';
+import Planete2 from '/planete2.png';
+import Planete3 from '/planete3.png';
 
 const experiences = [
     {
         title: 'Expérience 1',
         description: "Description de l'expérience 1",
-        image: 'url_image_experience_1',
+        image: OpticFiber,
         cssClass: 'bgColor1'
     },
     {
         title: 'Expérience 2',
         description: "Description de l'expérience 2",
-        image: 'url_image_experience_2',
+        image: ChaosGame,
         cssClass: 'bgColor2'
     },
     {
         title: 'Expérience 3',
         description: "Description de l'expérience 3",
-        image: 'url_image_experience_3',
+        image: LavaLamp,
         cssClass: 'bgColor3'
+    },
+    {
+        title: 'Expérience 4',
+        description: "Description de l'expérience 4",
+        image: Particles,
+        cssClass: 'bgColor4'
+    },
+    {
+        title: 'Expérience 5',
+        description: "Description de l'expérience 5",
+        image: Fluid,
+        cssClass: 'bgColor5'
+    },
+    {
+        title: 'Expérience 6',
+        description: "Description de l'expérience 6",
+        image: Fractal,
+        cssClass: 'bgColor6'
     }
 ];
 
@@ -103,10 +135,57 @@ const CarouselExperiences: React.FC = () => {
             }
         >
             <div
-                className={`coloredBG ${experiences[experienceIndex].cssClass}`}
-            ></div>
+                className={`seaBackground ${experiences[experienceIndex].cssClass}`}
+            >
+                <div className={'seaWave'}>
+                    <div
+                        style={{
+                            backgroundImage: `linear-gradient(to bottom, transparent, black), url(${SeaWater})`
+                        }}
+                    ></div>
+                </div>
+                <div className={'fishs'}>
+                    <div
+                        style={
+                            {
+                                '--backgroundFishs': `url(${Fishs})`
+                            } as React.CSSProperties
+                        }
+                    ></div>
+                    <div
+                        style={
+                            {
+                                '--backgroundFishs': `url(${Fishs})`
+                            } as React.CSSProperties
+                        }
+                    ></div>
+                </div>
+                <div className={'bubbles'}>
+                    <div
+                        style={
+                            {
+                                '--backgroundBubble': `url(${Bubble})`
+                            } as React.CSSProperties
+                        }
+                    ></div>
+                </div>
+                <div className={'sunRays'}>
+                    <div></div>
+                </div>
+                <div
+                    className={'stars'}
+                    style={{
+                        backgroundImage: `url(${Stars})`
+                    }}
+                ></div>
+                <div className={'planete'}>
+                    <img src={Planete1}></img>
+                    <img src={Planete2}></img>
+                    <img src={Planete3}></img>
+                </div>
+            </div>
+            <div className="backFrame"></div>
             <div>
-                <h2>Mes Expériences</h2>
                 <div
                     style={{
                         position: 'relative',
