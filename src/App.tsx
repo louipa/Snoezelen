@@ -10,6 +10,7 @@ import Fractales from './pages/Fractales';
 import FractalesShader from './pages/FractalesShader';
 import Layout from './pages/Layout';
 import NoPage from './pages/NoPage';
+import About from './pages/About/About';
 import CarouselExperiences from './pages/Carousel';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <HashRouter>
             <Routes>
                 <Route index element={<CarouselExperiences />} />
+                <Route path="about" element={<About />} />
                 <Route path="/" element={<Layout />}>
                     <Route path="squishCube" element={<SquishCube />} />
                     <Route path="particles" element={<Particles />} />
