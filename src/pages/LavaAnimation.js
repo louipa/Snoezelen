@@ -1,3 +1,5 @@
+import { add } from 'three/examples/jsm/libs/tween.module.js';
+
 export function lavaAnimation(playSound) {
     let stop = true;
     let metaballs;
