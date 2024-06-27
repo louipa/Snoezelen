@@ -14,37 +14,6 @@ export default function Sidebar() {
             outerContainerId={'outer-container'}
             customBurgerIcon={<CustomBurgerIcon />}
         >
-            <Link className="menu-item" to="/">
-                Home
-            </Link>
-            <span className="item-separator" />
-            <Link className="menu-item" to="/squishCube">
-                Squish Cube
-            </Link>
-            <span className="item-separator" />
-            <Link className="menu-item" to="/lavalamp">
-                Lava Lamp
-            </Link>
-            <span className="item-separator" />
-            <Link className="menu-item" to="/fractales2">
-                Fractals
-            </Link>
-            <span className="item-separator" />
-            <Link className="menu-item" to="/fractales">
-                Chaos Game
-            </Link>
-            <span className="item-separator" />
-            <Link className="menu-item" to="/particles">
-                Particles
-            </Link>
-            <span className="item-separator" />
-            <Link className="menu-item" to="/opticfiber">
-                Optic Fiber
-            </Link>
-            <span className="item-separator" />
-            <Link className="menu-item" to="/fluid">
-                Fluid
-            </Link>
             {elementSidebar}
         </Menu>
     );
