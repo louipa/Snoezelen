@@ -1,7 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { lavaAnimation } from './LavaAnimation.js';
 import SidebarContext from '../components/sidebarContext.js';
 import ParamSlider from '../components/parameters/paramSlider.js';
+import Kalimba from '../assets/kalimba.mp3';
+import useSound from 'use-sound';
+import ParamCheckBox from '../components/parameters/paramCheckBox.js';
 
 let lavaAnim: lavaAnimation;
 
@@ -25,12 +28,22 @@ const setBallSpeed = (event: { target: { value: any } }) => {
 
 export default function Lavalamp() {
     const { setElementSidebar } = useContext(SidebarContext);
+    const [playSound, setPlaySound] = useState(false);
 
+    const [play, { stop }] = useSound(Kalimba, { soundEnabled: playSound });
     useEffect(() => {
-        lavaAnim = lavaAnimation();
+        lavaAnim = lavaAnimation(play);
         setElementSidebar(
             <div className="parameter-container">
                 <h3>Personalize your experience</h3>
+                <ParamCheckBox
+                    name="Sound"
+                    defaultValue={playSound}
+                    onChange={(e) =>
+                        setPlaySound(Boolean(e.currentTarget.checked))
+                    }
+                />
+
                 <ParamSlider
                     name="Ball number"
                     min="1"
@@ -64,7 +77,7 @@ export default function Lavalamp() {
             lavaAnim.changeState();
             setElementSidebar(<></>);
         };
-    }, [setElementSidebar]);
+    }, [setElementSidebar, play]);
 
     return <canvas id="lamp-anim" className="lamp-anim size100p"></canvas>;
 }
