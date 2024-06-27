@@ -46,14 +46,14 @@ export class Worm {
         );
     }
 
-    movePosition() {
+    movePosition(delta = 1) {
         this.headDirection.x =
             0.9 * this.headDirection.x + 0.1 * this.headMomentum.x;
         this.headDirection.y =
             0.9 * this.headDirection.y + 0.1 * this.headMomentum.y;
 
-        this.headPosition.x += this.headDirection.x * this.speed;
-        this.headPosition.y += this.headDirection.y * this.speed;
+        this.headPosition.x += this.headDirection.x * this.speed * delta;
+        this.headPosition.y += this.headDirection.y * this.speed * delta;
         this.body.unshift(
             new THREE.Vector2(this.headPosition.x, this.headPosition.y)
         );
@@ -92,7 +92,7 @@ export default function Fluid(props: {
                     { x: 0, y: 0 },
                     { x: 0, y: 0 },
                     [],
-                    6,
+                    13,
                     'white'
                 )
         )
@@ -107,7 +107,7 @@ export default function Fluid(props: {
         }
     }, [camera, size]);
 
-    useFrame(() => {
+    useFrame((frame, delta) => {
         if (bounds) {
             setAllWorm((prevWorms) =>
                 prevWorms.map((worm) => {
@@ -137,7 +137,7 @@ export default function Fluid(props: {
                     worm.headMomentum = props.fieldVector[i][j];
 
                     const newWorm = worm.copy();
-                    newWorm.movePosition();
+                    newWorm.movePosition(delta * 50);
                     return newWorm;
                 })
             );

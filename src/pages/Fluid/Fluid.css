@@ -1,3 +1,7 @@
+section.fluid {
+    filter: brightness(4);
+}
+
 section.fluid > :not(:last-child) {
     position: absolute !important;
     inset: 0;
@@ -9,12 +13,12 @@ section.fluid > .colorFilter {
     overflow: hidden;
 }
 
-@keyframes fadeIn {
+@keyframes changeColor {
     from {
-        opacity: 0;
+        transform: translateX(-50%);
     }
     to {
-        opacity: 1;
+        transform: translateX(0);
     }
 }
 
@@ -22,14 +26,15 @@ section.fluid > .colorFilter::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, blue, lime);
-    animation: fadeIn 10s linear infinite alternate;
+    right: -100%;
+    background: linear-gradient(to right, red, blue, lime);
+    animation: changeColor 10s linear infinite alternate;
 }
 
-section.fluid > .colorFilter::after {
+/* section.fluid > .colorFilter::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(45deg, red, blue);
     animation: fadeIn 10s linear infinite alternate-reverse;
-}
+} */
