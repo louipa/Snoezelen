@@ -399,9 +399,9 @@
 .backFrame {
     position: absolute;
     width: min(800px, 100vw);
-    aspect-ratio: 2/1.13;
+    aspect-ratio: 2/1.14;
     top: 50%;
-    transform: translateY(calc(-50% - 1.7em));
+    transform: translateY(calc(-50% - 2em));
     background-color: rgba(0, 0, 0, 0.742);
     border-radius: 2em;
 }
@@ -420,9 +420,27 @@
     mix-blend-mode: lighten;
 }
 
-.slick-slide img {
+.slick-slide .thumbnail {
     border-radius: 2em;
+    overflow: hidden;
+}
+
+.slick-slide img {
     filter: brightness(2);
+}
+
+.slick-slide h3 {
+    background-color: white;
+    border-radius: 10em;
+    width: fit-content;
+    margin: 1em auto;
+    mix-blend-mode: lighten;
+}
+
+.slick-slide h3 a {
+    font-weight: bolder;
+    color: black;
+    padding: 0 1em;
 }
 
 .slick-arrow {
@@ -435,4 +453,18 @@
 
 .slick-dots {
     filter: invert(1);
+}
+
+:is(.slick-slide h3, .slick-slide img) {
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 0.5s;
+}
+
+:is(.slick-slide h3, .slick-arrow, .slick-slide img):hover {
+    transform: scale(1.1);
+}
+
+:is(.slick-slide h3, .slick-slide img):active {
+    transform: scale(1.5);
 }

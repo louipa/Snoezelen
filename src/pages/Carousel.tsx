@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Carousel.css';
-import SunRays from '/SunRays.png';
+import { Link } from 'react-router-dom';
 import SeaWater from '/seaWater.jpg';
 import Bubble from '/bubble.png';
 import Fishs from '/fish.png';
@@ -20,40 +20,40 @@ import Planete3 from '/planete3.png';
 
 const experiences = [
     {
-        title: 'Expérience 1',
-        description: "Description de l'expérience 1",
+        title: 'OPTIC FIBER',
         image: OpticFiber,
-        cssClass: 'bgColor1'
+        cssClass: 'bgColor1',
+        link: '/opticfiber'
     },
     {
-        title: 'Expérience 2',
-        description: "Description de l'expérience 2",
+        title: 'CHAOS FRACTAL',
         image: ChaosGame,
-        cssClass: 'bgColor2'
+        cssClass: 'bgColor2',
+        link: '/fractales'
     },
     {
-        title: 'Expérience 3',
-        description: "Description de l'expérience 3",
+        title: 'LAVA LAMP',
         image: LavaLamp,
-        cssClass: 'bgColor3'
+        cssClass: 'bgColor3',
+        link: '/lavalamp'
     },
     {
-        title: 'Expérience 4',
-        description: "Description de l'expérience 4",
+        title: 'PARTICLES',
         image: Particles,
-        cssClass: 'bgColor4'
+        cssClass: 'bgColor4',
+        link: '/particles'
     },
     {
-        title: 'Expérience 5',
-        description: "Description de l'expérience 5",
+        title: 'FLUID',
         image: Fluid,
-        cssClass: 'bgColor5'
+        cssClass: 'bgColor5',
+        link: '/fluid'
     },
     {
-        title: 'Expérience 6',
-        description: "Description de l'expérience 6",
+        title: 'FRACTALS',
         image: Fractal,
-        cssClass: 'bgColor6'
+        cssClass: 'bgColor6',
+        link: '/fractales2'
     }
 ];
 
@@ -201,13 +201,23 @@ const CarouselExperiences: React.FC = () => {
                                     padding: '10px'
                                 }}
                             >
-                                <img
-                                    src={experience.image}
-                                    alt={experience.title}
-                                    style={{ width: '100%', height: 'auto' }}
-                                />
-                                <h3>{experience.title}</h3>
-                                <p>{experience.description}</p>
+                                <div className="thumbnail">
+                                    <Link to={experience.link}>
+                                        <img
+                                            src={experience.image}
+                                            alt={experience.title}
+                                            style={{
+                                                width: '100%',
+                                                height: 'auto'
+                                            }}
+                                        />
+                                    </Link>
+                                </div>
+                                <h3>
+                                    <Link to={experience.link}>
+                                        {experience.title}
+                                    </Link>
+                                </h3>
                             </div>
                         ))}
                     </Slider>
