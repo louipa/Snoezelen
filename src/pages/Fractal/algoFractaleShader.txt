@@ -1,0 +1,56 @@
+# Déclaration des variables (fournies par l'environnement de rendu)
+uniform vec2 iResolution  # Résolution de l'écran
+uniform float iTime       # Temps écoulé
+varying vec2 vUv          # Coordonnées de texture
+
+# Fonction exécutée pour chaque pixel
+fonction main() {
+    # Conversion des coordonnées de texture en coordonnées de pixel
+    vec2 fragCoord = vUv * iResolution
+    
+    # Normalisation des coordonnées dans l’intervalle [-1, 1]
+    vec2 p = (2.0 * fragCoord - iResolution.xy) / iResolution.y
+    
+    # Calcul du temps ajusté pour animer le shader
+    float time = 0.4 * iTime
+    
+    # Calcul des coordonnées complexes 'cc' en fonction du temps
+    # On préfère animer le changement du centre complexe plutôt que ‘zoomer’ 
+    # dedans en calculant le n ème terme car c’est moins coûteux
+    vec2 cc = 1.2 * vec2(0.5 * cos(0.1 * time) - 0.25 * cos(0.2 * time), 
+                         0.5 * sin(0.1 * time) - 0.25 * sin(0.2 * time))
+    
+    # Initialisation d'un vecteur de distances minimales
+    vec4 dmin = vec4(1000.0)
+    
+    # Initialisation des coordonnées complexes
+    vec2 z = p
+    
+    # Boucle d'itération pour calculer les fractales
+    pour i de 0 à 63 faire
+        # Calcul des nouvelles coordonnées complexes de Mandelbrot
+        z = cc + vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y)
+        
+        # Mise à jour des distances minimales
+        # les formules de calcul des distances sont arbitraires
+        dmin = min(dmin, vec4(abs(0.0 + z.y + 0.5 * sin(z.x)), 
+                              abs(1.0 + z.x + 0.5 * sin(z.y)), 
+                              dot(z, z), 
+                              length(fract(z) - 0.5)))
+    fin pour
+    
+    # Initialisation de la couleur
+    vec3 col = vec3(dmin.w)
+    
+    # Mélange des couleurs en fonction des distances minimales
+    col = mix(col, vec3(0.68, 0.9, 0.361), min(1.0, pow(dmin.x * 0.25, 0.20)))
+    col = mix(col, vec3(0.4, 0.435, 0.4), min(1.0, pow(dmin.y * 0.50, 0.50)))
+    col = mix(col, vec3(0, 0.788, 0.655), 1.0 - min(1.0, pow(dmin.z * 1.00, 0.15)))
+    
+    # Accentuer la couleur
+    col = 1.25 * col * col
+    col = col * col * (3.0 - 2.0 * col)
+    
+    # Affectation de la couleur finale au pixel
+    gl_FragColor = vec4(col, 1.0)
+}

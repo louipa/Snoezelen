@@ -1,0 +1,143 @@
+Class Perlin
+    Function initialize()
+        gradients = Dictionary()
+        memory = Dictionary()
+
+    Function rand_vect()
+        theta = Random() * 2 * PI
+        return {x: Cos(theta), y: Sin(theta)}
+
+    Function dot_prod_grid(x: Number, y: Number, vx: Number, vy: Number): Number
+        If [vx, vy] in gradients
+            g_vect = gradients[[vx, vy]]
+        Else
+            g_vect = rand_vect()
+            gradients[[vx, vy]] = g_vect
+
+        d_vect = {x: x - vx, y: y - vy}
+        return d_vect.x * g_vect.x + d_vect.y * g_vect.y
+
+    Function smootherstep(x: Number): Number
+        return 6 * x^5 - 15 * x^4 + 10 * x^3
+
+    Function interp(x: Number, a: Number, b: Number): Number
+        return a + smootherstep(x) * (b - a)
+
+    Function get(x: Number, y: Number): Number
+        If [x, y] in memory
+            return memory[[x, y]]
+
+        xf = Floor(x)
+        yf = Floor(y)
+
+        tl = dot_prod_grid(x, y, xf, yf)
+        tr = dot_prod_grid(x, y, xf + 1, yf)
+        bl = dot_prod_grid(x, y, xf, yf + 1)
+        br = dot_prod_grid(x, y, xf + 1, yf + 1)
+
+        xt = interp(x - xf, tl, tr)
+        xb = interp(x - xf, bl, br)
+        v = interp(y - yf, xt, xb)
+
+        memory[[x, y]] = v
+        return v
+
+Function randomFieldVectors(size: Number): Array<Array<Vector3>>
+    perlin = Perlin()
+    perlin.initialize()
+    vectors = []
+
+    For i from 0 to size-1
+        row = []
+        For j from 0 to size-1
+            v = perlin.get(i / size, j / size)
+            angle = v * PI * 2
+            x = Cos(angle)
+            y = Sin(angle)
+            row.push(Vector3(x, y, 0))
+        vectors.push(row)
+
+    return vectors
+    
+Function Generator(canvasLength: Number, speed: Number, nbParticles: Number, particleSize: Number, randomBorderPlacement: Number, maxSteps: Number, changeVectors: Boolean)
+    interpolationProgress = -1
+    vectorsDivider = 4
+    vectors = randomFieldVectors(canvasLength / vectorsDivider)
+    previousVectors = vectors
+    transitionSteps = 0
+    maxTransitionSteps = maxSteps
+
+    particles = []
+    For i from 0 to nbParticles-1
+        position = randomPosition(canvasLength)
+        particles.push(position.x, position.y, position.z)
+
+    Function lerp(a: Number, b: Number, t: Number): Number
+        return a + (b - a) * t
+
+    Function updateParticles(state: Object)
+        If changeVectors
+            transitionSteps = state.clock.getElapsedTime() % maxTransitionSteps
+            If interpolationProgress >= 0.99
+                transitionSteps = 0
+                newVectors = randomFieldVectors(canvasLength / vectorsDivider)
+                previousVectors = vectors
+                vectors = newVectors
+                interpolationProgress = 0
+
+        For i from 0 to nbParticles-1
+            xIdx = Floor((particles[i * 3] + canvasLength / 2) * (vectors.length / canvasLength))
+            yIdx = Floor((particles[i * 3 + 1] + canvasLength / 2) * (vectors.length / canvasLength))
+            progress = 1 - Abs(interpolationProgress)
+            If changeVectors
+                progress *= 2.5
+
+            v0 = previousVectors[xIdx][yIdx]
+            v1 = vectors[xIdx][yIdx]
+            v = Vector3(lerp(v0.x, v1.x, progress), lerp(v0.y, v1.y, progress), 0)
+
+            If progress < 0.1
+                progress = 0.1
+
+            particles[i * 3] += v.x * speed * progress
+            particles[i * 3 + 1] += v.y * speed * progress
+            particles[i * 3 + 2] = 0
+
+            If Random() * 100 < randomBorderPlacement
+                position = randomPosition(canvasLength)
+                particles[i * 3] = position.x
+                particles[i * 3 + 1] = position.y
+            Else
+                If particles[i * 3] >= canvasLength / 2
+                    particles[i * 3] = -canvasLength / 2 + 1
+                If particles[i * 3] <= -canvasLength / 2
+                    particles[i * 3] = canvasLength / 2 - 1
+                If particles[i * 3 + 1] >= canvasLength / 2
+                    particles[i * 3 + 1] = -canvasLength / 2 + 1
+                If particles[i * 3 + 1] <= -canvasLength / 2
+                    particles[i * 3 + 1] = canvasLength / 2 - 1
+
+        If changeVectors
+            interpolationProgress = transitionSteps / (maxTransitionSteps / 2) - 1
+
+Function main()
+    canvasLength = 150
+    nbParticles = 20000
+    speed = 0.5
+    blur = False
+    animationChange = True
+    animationSpeed = 10
+    randomSpawn = 1
+    particleSize = 2
+
+    // Initialisation de la scène et des paramètres
+    SetBackgroundColor("#222222")
+    generator = Generator(
+        canvasLength, speed, nbParticles, particleSize, randomSpawn, animationSpeed, animationChange
+    )
+
+    // Boucle principale de rendu
+    While running
+        state = getState()  // Obtient l'état actuel de l'animation
+        generator.updateParticles(state)
+        renderScene()

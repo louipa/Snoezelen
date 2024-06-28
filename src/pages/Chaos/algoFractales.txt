@@ -1,0 +1,27 @@
+# Définir les sommets du triangle de Sierpinski
+points = [(x1, y1), (x2, y2), (x3, y3)]
+
+# Initialiser un point de départ (peut être n'importe où à l'intérieur du triangle)
+current_point = (x0, y0)
+
+# Nombre d'itérations
+iterations = 10000
+
+# Liste pour stocker les points générés
+chaos_points = []
+
+# Boucle principale pour le jeu du chaos
+pour i de 0 à iterations faire
+    # Choisir un sommet au hasard parmi les trois
+    target_point = points[random(0, 2)]
+    
+    # Calculer le point médian entre le point actuel et le sommet choisi
+    current_point = ( (current_point.x + target_point.x) / 2, 
+                      (current_point.y + target_point.y) / 2 )
+    
+    # Ajouter le point actuel à la liste des points générés
+    chaos_points.append(current_point)
+fin pour
+
+# Afficher les points générés pour voir le triangle de Sierpinski
+afficher(chaos_points)

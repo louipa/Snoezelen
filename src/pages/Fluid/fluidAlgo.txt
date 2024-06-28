@@ -1,0 +1,57 @@
+// Classe représantant un ver
+class Worm:
+    attributes:
+        width: number
+        length: number
+        headPosition: (x: number, y: number)
+        headDirection: (x: number, y: number)
+        headMomentum: (x: number, y: number)
+        body: list of (x: number, y: number)
+        speed: number
+        color: string
+
+    // Constructeur
+    method constructor
+
+    // Méthode pour déplacer la position du ver
+    method movePosition()
+        this.headDirection = 0.9 * this.headDirection + 0.1 * this.headMomentum
+        this.headPosition += this.headDirection * this.speed
+
+        insert at start of this.body (this.headPosition)
+        
+        if length of this.body > this.length:
+            remove last element from this.body
+
+fieldVector -> un tableau de vecteur x, y indiquant la direction des vecteur du champ
+newFieldVector -> un champs vectorielle (cohérent) généré aléatoirement, de même taille que fieldVector
+allWrom -> liste de longeur donnée de vers avec une position aléatoire dans la taille du champs
+
+
+while true:
+    // Changer de champs vectorielle
+    if tempsEntreNewField over:
+        newFieldVector = genererNouveauChamp()
+
+    // rendre plus proche de la matrice vectorielle cible
+    if tempsEntreDeuxUpdateDeChamp over:
+        for i in fieldVector:
+            for j in fieldVector[i]:
+                fieldVector[i, j] = 0.9 * fieldVector[i, j] + 0.1 * newFieldVector[i][j]
+
+    for each worm in allWorm:
+        // Trouver les indices de la grille pour la position de la tête du ver
+        i = floor(worm.headPosition.x / (fieldChunk / 2))
+        j = floor(worm.headPosition.y / (fieldChunk / 2))
+
+        // Vérifier les limites de la grille
+        if ! 0 < i < fieldChunk or ! 0 < j < fieldChunk:
+            // Réinitialiser la position du ver et son corps
+            worm.headPosition = randomPosition  // Nouvelle position aléatoire
+            worm.body.viderListe()
+            worm.headDirection = (0, 0)              // Réinitialiser la direction
+        else:
+            // Mettre à jour la momentum du ver à partir du champ vectoriel
+            worm.headMomentum = fieldVector[i][j]
+
+        newWorm.movePosition()

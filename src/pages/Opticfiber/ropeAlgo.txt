@@ -1,0 +1,57 @@
+class Rope {
+    attributes:
+        segments: number
+        segmentLength: number
+        gravity: (x: number, y: number, z: number)
+        damping: number
+        mouseForce: number
+        correctionThreshold: number
+        points: list of (x: number, y: number, z: number)
+        velocities: list of (x: number, y: number, z: number)
+        mousePosition: (x: number, y: number, z: number)
+
+    // Constructeur
+    method constructor(x: number, y: number, segments: number, segmentLength: number, gravity: (x: number, y: number, z: number), damping: number, mouseForce: number, correctionThreshold: number)
+        this.segments = segments
+        this.segmentLength = segmentLength
+        this.gravity = gravity
+        this.damping = damping
+        this.mouseForce = mouseForce
+        this.correctionThreshold = correctionThreshold
+        this.points = [ (x, y - i * segmentLength, 0) for i in 0..segments ]
+        this.velocities = [ (0, 0, 0) for _ in 0..segments ]
+        this.mousePosition = (0, 0, 0)
+
+    // Méthode pour mettre à jour la position de la souris
+    method updateMousePosition(newMousePosition: (x: number, y: number, z: number))
+        this.mousePosition = newMousePosition
+
+    // Méthode pour appliquer les forces et mettre à jour les positions des points
+    method applyForces()
+        for i in 1..this.points.length - 1:
+            // Appliquer la gravité
+            this.velocities[i] += this.gravity
+
+            // Calculer la force de la souris
+            direction = this.points[i] - this.mousePosition
+            distance = length(direction)
+            force = normalize(direction) * (this.mouseForce * 30) / (distance * distance + 0.1)
+            this.velocities[i] += force
+
+            // Appliquer le damping
+            this.velocities[i] *= this.damping
+
+            // Mettre à jour la position du point
+            this.points[i] += this.velocities[i]
+
+            // Corriger la longueur des segments
+            segment = this.points[i] - this.points[i - 1]
+            currentLength = length(segment)
+            if abs(currentLength - this.segmentLength) > this.correctionThreshold:
+                correction = normalize(segment) * (currentLength - this.segmentLength)
+                this.points[i] -= correction
+
+    // Méthode pour mettre à jour la corde
+    method update()
+        this.applyForces()
+}

@@ -1,0 +1,103 @@
+Initialiser variables :
+    stop = true
+    sizeFactor = 1
+    speedFactor = 0.25
+    screen, context, metaballs
+
+Classe Vector:
+    Propriétés:
+        x, y, magnitude, computed, force
+    Méthodes:
+        add(vector): retourne un nouveau Vector avec x et y additionnés
+        multiply(factor): retourne un nouveau Vector avec x et y multipliés par factor
+
+Classe Ball:
+    Propriétés:
+        velocity, position, basesize, size, width, height
+    Méthodes:
+        Constructor(environment):
+            Initialiser velocity avec une direction et vitesse aléatoires
+            Initialiser position à une position aléatoire dans l'environnement
+            Calculer basesize et size en fonction de sizeFactor et des dimensions de l'environnement
+        move():
+            Mettre à jour la position en fonction de la vitesse et des limites de l'écran
+        changeSize():
+            Mettre à jour la taille de la balle en fonction de sizeFactor
+
+Classe Metaballs:
+    Propriétés:
+        step, width, height, minDimension, sx, sy, paint, metaFill, plx, ply, mscases, ix, grid, balls, iteration, sign, context
+    Méthodes:
+        Constructor(width, height, ballCount, color1, color2, context):
+            Initialiser les dimensions, les propriétés de grille et les couleurs
+            Créer des balles et les ajouter à la liste
+        createGradient(x, y, radius, color1, color2, context):
+            Créer un dégradé radial pour les metaballs
+        computeForce(x, y, index):
+            Calculer la force pour une position donnée dans la grille
+        marchingSquares(point):
+            Utiliser l'algorithme marching squares pour tracer les contours des metaballs
+        renderMetaballs():
+            Mettre à jour les positions des balles et recalculer les forces
+            Utiliser marchingSquares pour dessiner les metaballs
+        recalculateForces():
+            Recalculer toutes les forces dans la grille
+
+Function marchingSquares(grid, threshold):
+    Pour chaque cellule dans la grille:
+        corners = récupérer les quatre coins de la cellule
+        state = 0
+
+        // Calculer l'état de la cellule en utilisant le seuil
+        Pour chaque coin (i de 0 à 3):
+            Si la force au coin[i] > threshold:
+                state = state + 2^i
+
+        tracerContour(state, corners)
+
+Function interpoler(corner1, corner2, value1, value2, threshold):
+    t = (threshold - value1) / (value2 - value1)
+    return corner1 + t * (corner2 - corner1)
+
+Function tracerContour(state, corners):
+    Si state == 0 ou state == 15:
+        retourner  // Pas de contour à tracer
+
+    // Dictionnaire des configurations de lignes pour chaque état
+    configurations = {
+        1: [(0, 1), (0, 3)],
+        2: [(1, 2), (0, 1)],
+        3: [(0, 1), (1, 2)],
+        4: [(2, 3), (1, 2)],
+        5: [(0, 3), (2, 3), (1, 2), (0, 1)],
+        6: [(0, 3), (2, 3)],
+        7: [(0, 3)],
+        8: [(3, 0), (3, 2)],
+        9: [(0, 1), (3, 2)],
+        10: [(1, 2), (3, 2)],
+        11: [(1, 2)],
+        12: [(2, 3)],
+        13: [(2, 3), (0, 1)],
+        14: [(3, 0)]
+    }
+
+    // Récupérer les configurations de lignes pour l'état donné
+    lignes = configurations[state]
+
+    Pour chaque (i, j) dans lignes:
+        point1 = interpoler(corners[i], corners[(i + 1) % 4], values[i], values[(i + 1) % 4], threshold)
+        point2 = interpoler(corners[j], corners[(j + 1) % 4], values[j], values[(j + 1) % 4], threshold)
+        tracerLigne(point1, point2)
+
+
+Function main():
+    Initialiser l'écran et le contexte de dessin
+    Initialiser les metaballs
+
+    Function animationFrame():
+        Si stop est vrai, arrêter l'animation
+        Demander la prochaine frame d'animation
+        Effacer le contexte de dessin
+        Appeler metaballs.renderMetaballs() pour dessiner les metaballs
+
+ 
