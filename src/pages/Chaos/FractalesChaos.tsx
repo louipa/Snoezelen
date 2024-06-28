@@ -1,10 +1,11 @@
+// @author : Louis Painter
+
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
-import Polygon from '../components/Polygon';
 import { Points } from '@react-three/drei';
-import SidebarContext from '../components/sidebarContext';
-import ParamSlider from '../components/parameters/paramSlider';
+import SidebarContext from '../../components/sidebar/sidebarContext';
+import ParamSlider from '../../components/parameters/paramSlider';
 
 function randomInteger(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -24,7 +25,7 @@ function pickHex(color1, color2, weight) {
     ];
 }
 
-const Fractales: React.FC = () => {
+const FractalesChaos: React.FC = () => {
     const { setElementSidebar } = useContext(SidebarContext);
     const radius = 4;
     const nbPoints = 100000;
@@ -106,7 +107,6 @@ const Fractales: React.FC = () => {
     return (
         <>
             <Canvas camera={{}} style={{ backgroundColor: 'black' }}>
-                <Polygon radius={radius} sides={sides} />
                 <Points positions={points[0]} colors={points[1]}>
                     <pointsMaterial vertexColors size={0.02} />
                 </Points>
@@ -115,4 +115,4 @@ const Fractales: React.FC = () => {
     );
 };
 
-export default Fractales;
+export default FractalesChaos;
