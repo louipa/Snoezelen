@@ -13,6 +13,12 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function About() {
     const parallax = useRef<IParallax>(null!);
     const navigate = useNavigate();
+    const backgroundStyle = {
+        backgroundSize: 'contain',
+        height: 'auto',
+        width: 'auto',
+        filter: 'blur(4px)'
+    };
     return (
         <div
             style={{
@@ -28,10 +34,7 @@ export default function About() {
                     speed={0}
                     style={{
                         backgroundImage: `url(${Room1Image})`,
-                        backgroundSize: 'contain',
-                        height: 'auto',
-                        width: 'auto',
-                        filter: 'blur(1px)'
+                        ...backgroundStyle
                     }}
                     onClick={() => parallax.current.scrollTo(1)}
                 />
@@ -40,9 +43,7 @@ export default function About() {
                     speed={1}
                     style={{
                         backgroundImage: `url(${Room2Image})`,
-                        backgroundSize: 'contain',
-                        width: 'auto',
-                        height: 'auto'
+                        ...backgroundStyle
                     }}
                     onClick={() => parallax.current.scrollTo(2)}
                 />
@@ -51,16 +52,14 @@ export default function About() {
                     speed={0}
                     style={{
                         backgroundImage: `url(${Room3Image})`,
-                        backgroundSize: 'contain',
-                        width: 'auto',
-                        height: 'auto'
+                        ...backgroundStyle
                     }}
                     onClick={() => parallax.current.scrollTo(0)}
                 />
 
                 <ParallaxLayer
                     offset={2}
-                    speed={5}
+                    speed={500}
                     style={{
                         pointerEvents: 'none',
                         height: '100vh',
