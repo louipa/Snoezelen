@@ -1,3 +1,5 @@
+// @author : Louis Painter
+
 'use strict';
 import * as THREE from 'three';
 

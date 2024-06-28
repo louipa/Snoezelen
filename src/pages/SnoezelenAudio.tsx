@@ -1,6 +1,8 @@
+// @author : Louis Painter
+
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import kalimbaFile from '../assets/kalimba.mp3';
-import riverFile from '../assets/river.mp3';
+import kalimbaFile from '/kalimba.mp3';
+import riverFile from '/river.mp3';
 
 let globalAudioContext: AudioContext | null = null;
 let kalimbaBuffer: AudioBuffer | null = null;

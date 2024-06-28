@@ -1,4 +1,5 @@
-// src/Rope.js
+// @author: Clément Galiot
+
 import React, { useRef, useEffect, useMemo, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';

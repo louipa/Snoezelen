@@ -1,9 +1,11 @@
+// @author: Louis Painter, Clément Galiot
+
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { randomFieldVectors } from './perlin.js';
-import * as THREE from 'three'; // Import the THREE object from the three package
+import * as THREE from 'three';
 import { Points } from '@react-three/drei';
-import SidebarContext from '../../components/sidebarContext.js';
+import SidebarContext from '../../components/sidebar/sidebarContext.js';
 import ParamSlider from '../../components/parameters/paramSlider.js';
 import ParamCheckBox from '../../components/parameters/paramCheckBox.js';
 
@@ -15,7 +17,7 @@ const SetBackgroundColor = ({ color }) => {
     const { scene } = useThree();
 
     useEffect(() => {
-        scene.background = new THREE.Color(color); // Use the THREE object to set the background color
+        scene.background = new THREE.Color(color);
     }, [color, scene]);
 
     return null;

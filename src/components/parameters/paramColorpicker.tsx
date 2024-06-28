@@ -1,3 +1,5 @@
+// @author : Clément Galiot
+
 import React, { useState } from 'react';
 import ParamBase from './paramBase';
 import Colorful from '@uiw/react-color-colorful';

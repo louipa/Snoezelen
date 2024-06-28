@@ -1,3 +1,5 @@
+// @author : Antoine Otegui, Louis Painter
+
 import React, { useState, useEffect } from 'react';
 import Fluid from './Fluid';
 import { Canvas, useThree } from '@react-three/fiber';
