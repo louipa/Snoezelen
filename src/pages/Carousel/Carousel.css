@@ -73,7 +73,7 @@
             transparent 78%
         );
     opacity: 0.5;
-    animation: moveSide 35s infinite linear;
+    animation: moveSide 35s infinite linear paused;
 }
 
 .bgColor1 .sunRays {
@@ -82,6 +82,10 @@
 
 .bgColor2 .sunRays {
     opacity: 0.3;
+}
+
+:is(.bgColor1, .bgColor2) .sunRays > div {
+    animation-play-state: running;
 }
 
 /* ******* */
@@ -121,11 +125,15 @@
     inset: -2px;
     width: 300%;
     background-size: 25%;
-    animation: moveSide2 20s infinite linear;
+    animation: moveSide2 20s infinite linear paused;
 }
 
 .bgColor1 .seaWave {
     transform: translateY(0%) rotate3d(1, 0, 0, -65deg);
+}
+
+.bgColor1 .seaWave > div {
+    animation-play-state: running;
 }
 
 /* ******* */
@@ -158,7 +166,7 @@
 
     height: 200%;
     --backgroundBubble: none;
-    animation: goUp 20s infinite linear;
+    animation: goUp 20s infinite linear paused;
 }
 
 @keyframes struggle {
@@ -176,7 +184,7 @@
     inset: 0;
     background-image: var(--backgroundBubble);
     background-size: auto 25%;
-    animation: struggle 3s ease-in-out infinite alternate;
+    animation: struggle 3s ease-in-out infinite alternate paused;
 }
 
 .bubbles > div::after {
@@ -185,7 +193,7 @@
     inset: 0;
     background-image: var(--backgroundBubble);
     background-size: auto 12.5%;
-    animation: struggle 3s 1s ease-in-out infinite alternate;
+    animation: struggle 3s 1s ease-in-out infinite alternate paused;
 }
 
 .bgColor2 .bubbles {
@@ -200,6 +208,12 @@
 
 :is(.bgColor4, .bgColor5, .bgColor6) .bubbles {
     transform: translateY(-200%);
+}
+
+:is(.bgColor2, .bgColor3) .bubbles > div,
+:is(.bgColor2, .bgColor3) .bubbles > div::before,
+:is(.bgColor2, .bgColor3) .bubbles > div::after {
+    animation-play-state: running;
 }
 
 /* ******* */
@@ -230,7 +244,7 @@
     width: 100%;
     height: var(--fishsSize);
     transform: translateX(calc(100%));
-    animation: moveFishs 10s linear infinite;
+    animation: moveFishs 10s linear infinite paused;
 }
 
 .fishs > div:last-child {
@@ -256,7 +270,7 @@
     background-size: 100%;
     background-image: var(--backgroundFishs);
     aspect-ratio: 1/1;
-    animation: upFishs 2s ease-in-out infinite alternate;
+    animation: upFishs 2s ease-in-out infinite alternate paused;
 }
 
 .fishs > div:last-child:before {
@@ -270,6 +284,11 @@
 .bgColor4 .fishs {
     filter: brightness(0.2);
     transform: translateY(0%);
+}
+
+:is(.bgColor3, .bgColor4) .fishs > div,
+:is(.bgColor3, .bgColor4) .fishs > div::before {
+    animation-play-state: running;
 }
 
 :is(.bgColor5, .bgColor6) .fishs {
@@ -309,30 +328,6 @@
 
 /* ***** */
 
-.bgColor1::before {
-    transform: translateY(0);
-}
-
-.bgColor2::before {
-    transform: translateY(-17%);
-}
-
-.bgColor3::before {
-    transform: translateY(-34%);
-}
-
-.bgColor4::before {
-    transform: translateY(-51%);
-}
-
-.bgColor5::before {
-    transform: translateY(-68%);
-}
-
-.bgColor6::before {
-    transform: translateY(-83%);
-}
-
 /* planete */
 
 @keyframes levitate {
@@ -358,7 +353,7 @@
 
 .planete > * {
     position: absolute;
-    animation: levitate 10s infinite linear;
+    animation: levitate 10s infinite linear paused;
 }
 
 .planete > :first-child {
@@ -392,7 +387,35 @@
     transform: translateY(-50%);
 }
 
+:is(.bgColor5, .bgColor6) .planete > * {
+    animation-play-state: running;
+}
+
 /* ******* */
+
+.bgColor1::before {
+    transform: translateY(0);
+}
+
+.bgColor2::before {
+    transform: translateY(-17%);
+}
+
+.bgColor3::before {
+    transform: translateY(-34%);
+}
+
+.bgColor4::before {
+    transform: translateY(-51%);
+}
+
+.bgColor5::before {
+    transform: translateY(-68%);
+}
+
+.bgColor6::before {
+    transform: translateY(-83%);
+}
 
 /** other **/
 
