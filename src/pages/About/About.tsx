@@ -8,14 +8,7 @@ import Room3Image from '/room-3.png';
 import Clement from '/clement.jpeg';
 import Antoine from '/antoine.webp';
 import Louis from '/Louis.png';
-import { Link, redirect, useNavigate } from 'react-router-dom';
-
-const url = (name: string, wrap = false) =>
-    `${
-        wrap ? 'url(' : ''
-    }https://awv3node-homepage.surge.sh/build/assets/${name}.svg${
-        wrap ? ')' : ''
-    }`;
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function About() {
     const parallax = useRef<IParallax>(null!);
@@ -67,7 +60,7 @@ export default function About() {
                 />
 
                 <ParallaxLayer
-                    offset={2.35}
+                    offset={2}
                     speed={500}
                     style={{
                         display: 'flex',
@@ -76,7 +69,14 @@ export default function About() {
                         pointerEvents: 'none'
                     }}
                 >
-                    <img src={CatImage} style={{ width: '30%' }} />
+                    <img
+                        src={CatImage}
+                        style={{
+                            width: '30%',
+                            bottom: '0px',
+                            position: 'absolute'
+                        }}
+                    />
                 </ParallaxLayer>
 
                 <ParallaxLayer
