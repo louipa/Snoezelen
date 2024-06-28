@@ -17,6 +17,7 @@ import Particles from '/Particles.webp';
 import Planete1 from '/firstPlanete.png';
 import Planete2 from '/planete2.png';
 import Planete3 from '/planete3.png';
+import AboutButton from '/info.png';
 
 const experiences = [
     {
@@ -134,6 +135,20 @@ const CarouselExperiences: React.FC = () => {
                 } as React.CSSProperties
             }
         >
+            <Link to="/about">
+                <img
+                    src={AboutButton}
+                    style={{
+                        zIndex: 1000,
+                        position: 'fixed',
+                        width: '50px',
+                        height: '50px',
+                        bottom: '10px',
+                        right: '10px'
+                    }}
+                />
+            </Link>
+
             <div
                 className={`seaBackground ${experiences[experienceIndex].cssClass}`}
             >
