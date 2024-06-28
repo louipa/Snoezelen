@@ -26,7 +26,6 @@ export default function About() {
                 <ParallaxLayer
                     offset={0}
                     speed={0}
-                    factor={3}
                     style={{
                         backgroundImage: `url(${Room1Image})`,
                         backgroundSize: 'contain',
@@ -61,19 +60,22 @@ export default function About() {
 
                 <ParallaxLayer
                     offset={2}
-                    speed={500}
+                    speed={5}
                     style={{
+                        pointerEvents: 'none',
+                        height: '100vh',
                         display: 'flex',
                         justifyContent: 'center',
-                        pointerEvents: 'none'
+                        zIndex: 9999
                     }}
                 >
                     <img
                         src={CatImage}
                         style={{
-                            width: '30%',
-                            bottom: '0px',
-                            position: 'absolute'
+                            width: 'auto',
+                            height: '20vh',
+                            position: 'fixed',
+                            bottom: '-10px'
                         }}
                     />
                 </ParallaxLayer>
