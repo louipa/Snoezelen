@@ -1,4 +1,5 @@
-// SidebarContext.js
+// @author : Clément Galiot
+
 import React from 'react';
 
 interface SidebarContextProps {

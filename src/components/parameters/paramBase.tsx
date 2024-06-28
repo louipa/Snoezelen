@@ -1,3 +1,5 @@
+// @author : Clément Galiot
+
 import React from 'react';
 import './paramBase.css';
 

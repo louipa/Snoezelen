@@ -30,7 +30,7 @@ const experiences = [
         title: 'CHAOS FRACTAL',
         image: ChaosGame,
         cssClass: 'bgColor2',
-        link: '/fractales'
+        link: '/fractaleschaos'
     },
     {
         title: 'LAVA LAMP',
@@ -54,7 +54,7 @@ const experiences = [
         title: 'FRACTALS',
         image: Fractal,
         cssClass: 'bgColor6',
-        link: '/fractales2'
+        link: '/fractales'
     }
 ];
 

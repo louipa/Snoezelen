@@ -1,10 +1,12 @@
+// @author: Clément Galiot
+
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { lavaAnimation } from './LavaAnimation.js';
-import SidebarContext from '../components/sidebarContext.js';
-import ParamSlider from '../components/parameters/paramSlider.js';
-import Kalimba from '../assets/kalimba.mp3';
+import SidebarContext from '../../components/sidebar/sidebarContext.js';
+import ParamSlider from '../../components/parameters/paramSlider.js';
+import Kalimba from '/kalimba.mp3';
 import useSound from 'use-sound';
-import ParamCheckBox from '../components/parameters/paramCheckBox.js';
+import ParamCheckBox from '../../components/parameters/paramCheckBox.js';
 
 let lavaAnim: lavaAnimation;
 

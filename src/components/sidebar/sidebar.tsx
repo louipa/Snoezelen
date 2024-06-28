@@ -1,7 +1,10 @@
-import React, { useContext, useRef, useState } from 'react';
+// @author : Clément Galiot, Antoine Otegui
+// librairy : https://github.com/negomi/react-burger-menu
+
+import React, { useContext } from 'react';
 import { push as Menu } from 'react-burger-menu';
 import './sidebar.css';
-import { Outlet, Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SidebarContext from './sidebarContext';
 import CustomParametersButton from '/parameters.png';
 import HomeButton from '/home.png';

@@ -1,7 +1,9 @@
+// @author : Antoine Otegui, Clément Galiot
+
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../components/sidebar';
-import SidebarContext from '../components/sidebarContext';
+import Sidebar from '../components/sidebar/sidebar';
+import SidebarContext from '../components/sidebar/sidebarContext';
 
 const Layout = () => {
     const [elementSidebar, setElementSidebar] = useState<React.ReactNode>(

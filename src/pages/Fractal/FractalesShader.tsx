@@ -1,8 +1,7 @@
-import { shaderMaterial } from '@react-three/drei';
-import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+// @author : Louis Painter
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import React, { useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import SidebarContext from '../components/sidebarContext';
 
 const vertex = `
 varying vec2 vUv;

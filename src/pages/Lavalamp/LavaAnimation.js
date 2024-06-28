@@ -1,4 +1,5 @@
-import { add } from 'three/examples/jsm/libs/tween.module.js';
+// author: Clément Galiot, Louis Painter
+// marching squares algorithm from https://codepen.io/innersociety/pen/rEXoer
 
 export function lavaAnimation(playSound) {
     let stop = true;

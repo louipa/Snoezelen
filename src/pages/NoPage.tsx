@@ -1,3 +1,5 @@
+// @author : Antoine Otegui
+
 import React from 'react';
 
 const NoPage = () => {

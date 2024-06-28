@@ -1,10 +1,12 @@
+// @author : Clément Galiot
+
 import React, { useContext, useEffect, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 
 import * as THREE from 'three';
-import Rope from '../components/rope';
-import SidebarContext from '../components/sidebarContext';
-import ParamSlider from '../components/parameters/paramSlider';
+import Rope from './rope';
+import SidebarContext from '../../components/sidebar/sidebarContext';
+import ParamSlider from '../../components/parameters/paramSlider';
 
 const SetBackgroundColor = ({ color }: { color: string }) => {
     const { scene } = useThree();

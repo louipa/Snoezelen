@@ -1,3 +1,5 @@
+// @author : Louis Painter
+
 import React, { useRef } from 'react';
 import './about.css';
 import { Parallax, ParallaxLayer, IParallax } from '@react-spring/parallax';
