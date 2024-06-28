@@ -64,7 +64,6 @@ export default function About() {
                     speed={500}
                     style={{
                         display: 'flex',
-                        alignItems: 'center',
                         justifyContent: 'center',
                         pointerEvents: 'none'
                     }}
