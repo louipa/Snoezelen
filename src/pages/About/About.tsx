@@ -73,7 +73,7 @@ export default function About() {
                         src={CatImage}
                         style={{
                             width: 'auto',
-                            height: '20vh',
+                            height: '20%',
                             position: 'fixed',
                             bottom: '-10px'
                         }}
