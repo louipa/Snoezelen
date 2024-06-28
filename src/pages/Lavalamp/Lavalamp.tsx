@@ -81,5 +81,11 @@ export default function Lavalamp() {
         };
     }, [setElementSidebar, play]);
 
-    return <canvas id="lamp-anim" className="lamp-anim size100p"></canvas>;
+    return (
+        <canvas
+            style={{ backgroundColor: 'black' }}
+            id="lamp-anim"
+            className="lamp-anim size100p"
+        ></canvas>
+    );
 }
