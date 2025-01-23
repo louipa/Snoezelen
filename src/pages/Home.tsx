@@ -1,7 +1,7 @@
 // @author : Antoine Otegui, Louis Painter, Clément Galiot
 
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './home.css';
 
 const Home = () => {

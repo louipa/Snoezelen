@@ -6,8 +6,8 @@ import { push as Menu } from 'react-burger-menu';
 import './sidebar.css';
 import { Link } from 'react-router-dom';
 import SidebarContext from './sidebarContext';
-import CustomParametersButton from '/parameters.png';
-import HomeButton from '/home.png';
+import CustomParametersButton from '../../assets/parameters.png';
+import HomeButton from '../../assets/home.png';
 
 export default function Sidebar() {
     const { elementSidebar } = useContext(SidebarContext);

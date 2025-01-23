@@ -10,6 +10,8 @@ Snoezelen! Have you heard of it? It is a multisensory approach designed to gentl
 
 This project was done for a course at IMT Atlantique, France.
 
+Demo available here : https://louipa.github.io/Snoezelen/
+
 # How to run
 
 ```

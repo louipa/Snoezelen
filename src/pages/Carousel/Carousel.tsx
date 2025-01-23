@@ -4,20 +4,20 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Carousel.css';
 import { Link } from 'react-router-dom';
-import SeaWater from '/seaWater.jpg';
-import Bubble from '/bubble.png';
-import Fishs from '/fish.png';
-import Stars from '/stars.png';
-import ChaosGame from '/ChaosGame.webp';
-import Fluid from '/Fluid.webp';
-import Fractal from '/Fractal.webp';
-import LavaLamp from '/LavaLamp.webp';
-import OpticFiber from '/OpticFiber.webp';
-import Particles from '/Particles.webp';
-import Planete1 from '/firstPlanete.png';
-import Planete2 from '/planete2.png';
-import Planete3 from '/planete3.png';
-import AboutButton from '/info.png';
+import SeaWater from './../../assets/seaWater.jpg';
+import Bubble from './../../assets/bubble.png';
+import Fishs from './../../assets/fish.png';
+import Stars from './../../assets/stars.png';
+import ChaosGame from './../../assets/ChaosGame.webp';
+import Fluid from './../../assets/Fluid.webp';
+import Fractal from './../../assets/Fractal.webp';
+import LavaLamp from './../../assets/LavaLamp.webp';
+import OpticFiber from './../../assets/OpticFiber.webp';
+import Particles from './../../assets/Particles.webp';
+import Planete1 from './../../assets/firstPlanete.png';
+import Planete2 from './../../assets/planete2.png';
+import Planete3 from './../../assets/planete3.png';
+import AboutButton from './../../assets/info.png';
 
 const experiences = [
     {

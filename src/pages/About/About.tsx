@@ -3,13 +3,13 @@
 import React, { useRef } from 'react';
 import './about.css';
 import { Parallax, ParallaxLayer, IParallax } from '@react-spring/parallax';
-import CatImage from '/cat.png';
-import Room1Image from '/room-1.png';
-import Room2Image from '/room-2.png';
-import Room3Image from '/room-3.png';
-import Clement from '/clement.jpeg';
-import Antoine from '/antoine.webp';
-import Louis from '/Louis.png';
+import CatImage from '../../assets/cat.png';
+import Room1Image from '../../assets/room-1.png';
+import Room2Image from '../../assets/room-2.png';
+import Room3Image from '../../assets/room-3.png';
+import Clement from '../../assets/clement.jpeg';
+import Antoine from '../../assets/antoine.webp';
+import Louis from '../../assets/Louis.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function About() {
